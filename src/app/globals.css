@@ -1,26 +1,152 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Core palette */
+  --color-green-deep: #006A4E;
+  --color-green-dark: #004D38;
+  --color-green-mist: #D6EDE5;
+  --color-gold: #C8962E;
+  --color-gold-light: #F5ECD6;
+  --color-surface: #F0F2F5;
+  --color-surface-raised: #FFFFFF;
+
+  /* Semantic aliases (backward compat) */
+  --color-primary: #006A4E;
+  --color-primary-dark: #004D38;
+  --color-primary-light: #D6EDE5;
+  --color-accent: #C8962E;
+  --color-background: #F0F2F5;
+  --color-foreground: #0C1B2A;
+  --color-muted: #526170;
+  --color-border: #DDE3EA;
+  --color-card: #FFFFFF;
+  --color-card-hover: #F0F2F5;
+
+  /* Neutrals */
+  --color-ink: #0C1B2A;
+  --color-ink-muted: #526170;
+  --color-rule: #DDE3EA;
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-plus-jakarta);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-rule);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-muted);
+}
+
+/* Currency input - hide number spinners */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* ─── Hero dot pattern ─── */
+.hero-dots {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.15) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 20px 20px;
+}
+
+/* ─── Decorative mesh gradient for hero ─── */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(200, 150, 46, 0.15), transparent),
+    radial-gradient(ellipse 50% 60% at 20% 80%, rgba(0, 77, 56, 0.4), transparent);
+  pointer-events: none;
+}
+
+/* ─── Card elevation ─── */
+.card-elevated {
+  box-shadow:
+    0 1px 3px rgba(12, 27, 42, 0.08),
+    0 6px 16px rgba(12, 27, 42, 0.06);
+}
+.card-elevated:hover {
+  box-shadow:
+    0 4px 8px rgba(12, 27, 42, 0.1),
+    0 12px 28px rgba(12, 27, 42, 0.08);
+}
+
+/* ─── Gold accent underline ─── */
+.gold-underline {
+  position: relative;
+  display: inline;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 6px;
+  background: var(--color-gold);
+  opacity: 0.5;
+  border-radius: 3px;
+}
+
+/* ─── Preview card tilt ─── */
+.preview-card {
+  transform: rotate(-3deg);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.preview-card:hover {
+  transform: rotate(-1.5deg) translateY(-4px);
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Intensity bar colors for slab table ─── */
+.slab-intensity-1 { background: rgba(0, 106, 78, 0.08); }
+.slab-intensity-2 { background: rgba(0, 106, 78, 0.14); }
+.slab-intensity-3 { background: rgba(0, 106, 78, 0.22); }
+.slab-intensity-4 { background: rgba(0, 106, 78, 0.32); }
+.slab-intensity-5 { background: rgba(0, 106, 78, 0.44); }
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    font-size: 12pt;
+    background: white;
+    color: black;
+  }
 }
