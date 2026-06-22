@@ -32,7 +32,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <span className="font-[family-name:var(--font-display)] text-lg font-extrabold text-green-deep">
-                Tax Solution BD
+                TaxHisab
               </span>
             </Link>
 

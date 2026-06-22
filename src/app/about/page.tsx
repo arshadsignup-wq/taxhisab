@@ -5,7 +5,7 @@ import { Shield, Calculator, BookOpen, Scale } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Tax Solution BD is a free, private income tax calculator and e-Return filing guide built for Bangladesh taxpayers.',
+    'TaxHisab is a free, private income tax calculator and e-Return filing guide built for Bangladesh taxpayers.',
 };
 
 export default function AboutPage() {
@@ -24,9 +24,9 @@ export default function AboutPage() {
       </p>
 
       <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">What Tax Solution BD Does</h2>
+        <h2 className="text-xl font-semibold mb-4">What TaxHisab Does</h2>
         <p className="text-muted leading-relaxed mb-4">
-          We built this tool to remove the middleman. Tax Solution BD walks you
+          We built this tool to remove the middleman. TaxHisab walks you
           through the exact same calculation your consultant does, but for free,
           in your browser, without sharing your financial data with anyone.
         </p>
@@ -93,7 +93,7 @@ export default function AboutPage() {
         <h2 className="text-xl font-semibold mb-4">Disclaimer</h2>
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
           <p className="text-sm text-amber-900 leading-relaxed">
-            Tax Solution BD provides tax estimates based on the information you
+            TaxHisab provides tax estimates based on the information you
             enter and current published tax rules. This tool is for
             informational purposes only and does not constitute professional tax
             advice. We are not affiliated with the National Board of Revenue

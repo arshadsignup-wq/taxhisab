@@ -4,7 +4,7 @@ import InfoCallout from '@/components/guide/InfoCallout';
 import GuideNavigation from '@/components/guide/GuideNavigation';
 
 export const metadata: Metadata = {
-  title: 'e-Return Filing: Step-by-Step | Tax Solution BD',
+  title: 'e-Return Filing: Step-by-Step | TaxHisab',
   description:
     'Step-by-step walkthrough of the NBR e-Return filing process on etaxnbr.gov.bd for Bangladesh income tax.',
 };

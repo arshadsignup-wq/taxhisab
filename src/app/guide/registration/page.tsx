@@ -4,7 +4,7 @@ import InfoCallout from '@/components/guide/InfoCallout';
 import GuideNavigation from '@/components/guide/GuideNavigation';
 
 export const metadata: Metadata = {
-  title: 'Registration: TIN & e-Return Account | Tax Solution BD',
+  title: 'Registration: TIN & e-Return Account | TaxHisab',
   description:
     'How to get your e-TIN certificate and register on the NBR e-Return portal for online income tax filing in Bangladesh.',
 };

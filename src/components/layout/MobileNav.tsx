@@ -46,7 +46,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
         {/* Close button */}
         <div className="flex items-center justify-between px-4 h-14 border-b border-rule">
           <span className="font-[family-name:var(--font-display)] text-lg font-bold text-green-deep">
-            Tax Solution BD
+            TaxHisab
           </span>
           <button
             type="button"

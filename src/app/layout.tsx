@@ -22,8 +22,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tax Solution BD | Free Bangladesh Income Tax Calculator & Filing Guide",
-    template: "%s | Tax Solution BD",
+    default: "TaxHisab | Free Bangladesh Income Tax Calculator & Filing Guide",
+    template: "%s | TaxHisab",
   },
   description:
     "Know your exact Bangladesh income tax in minutes. Free calculator covering all six income heads, investment rebates, and slab-wise breakdowns, plus a step-by-step NBR e-Return filing guide. No sign-up. No server. 100% private.",
@@ -33,12 +33,12 @@ export const metadata: Metadata = {
     "NBR tax calculator",
     "income tax Bangladesh 2026",
     "tax slab calculator BD",
-    "tax solution bd",
+    "taxhisab",
     "আয়কর ক্যালকুলেটর",
   ],
-  authors: [{ name: "Tax Solution BD" }],
+  authors: [{ name: "TaxHisab" }],
   openGraph: {
-    title: "Tax Solution BD | Free Bangladesh Income Tax Calculator",
+    title: "TaxHisab | Free Bangladesh Income Tax Calculator",
     description:
       "Calculate your exact Bangladesh income tax in minutes. Free, private, no sign-up required.",
     type: "website",

@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Column 1: Brand */}
           <div>
             <h3 className="font-[family-name:var(--font-display)] text-xl font-extrabold mb-3">
-              Tax Solution BD
+              TaxHisab
             </h3>
             <p className="text-sm text-white/60 leading-relaxed">
               Free income tax calculator and e-Return filing guide for
@@ -56,7 +56,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-white/40">
-          <span>&copy; {new Date().getFullYear()} Tax Solution BD. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} TaxHisab. All rights reserved.</span>
           <span>Built for Bangladesh taxpayers</span>
         </div>
       </div>

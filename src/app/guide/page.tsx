@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'e-Return Filing Guide | Tax Solution BD',
+  title: 'e-Return Filing Guide | TaxHisab',
   description:
     'Step-by-step guide to filing your Bangladesh income tax return online. Covers TIN registration, the NBR e-Return portal, income entry, deductions, and submission.',
 };

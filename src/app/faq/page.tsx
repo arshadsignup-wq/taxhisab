@@ -50,7 +50,7 @@ const FAQ_ITEMS = [
       'A statement of your assets and liabilities. You must submit it if any of these apply: gross wealth exceeds BDT 40 lakh, you own a motor vehicle, you own property, you live in a city corporation area, or your income exceeds BDT 4 lakh. It lists everything you own and everything you owe.',
   },
   {
-    question: 'Is Tax Solution BD affiliated with the government?',
+    question: 'Is TaxHisab affiliated with the government?',
     answer:
       'No. This is an independent, free tool. We are not affiliated with NBR or any government body. The calculator provides estimates based on published tax rules. For complex situations or legal advice, consult a registered tax professional.',
   },
