@@ -2,6 +2,7 @@
 
 import { useCalculatorStore } from '@/store/calculator-store';
 import type { WizardStep, WizardStepId } from '@/types/tax';
+import { useTranslation } from '@/i18n';
 
 interface WizardStepIndicatorProps {
   activeSteps: WizardStep[];
@@ -12,6 +13,7 @@ export default function WizardStepIndicator({
   activeSteps,
   currentStep,
 }: WizardStepIndicatorProps) {
+  const t = useTranslation();
   const { goToStep } = useCalculatorStore();
   const currentIndex = activeSteps.findIndex((s) => s.id === currentStep);
 
@@ -85,7 +87,7 @@ export default function WizardStepIndicator({
                       : 'text-ink-muted/60'
                   }`}
                 >
-                  {step.shortLabel}
+                  {t.wizard.steps[step.id]?.shortLabel ?? step.shortLabel}
                 </span>
               </button>
 
@@ -105,10 +107,10 @@ export default function WizardStepIndicator({
       <div className="md:hidden">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-ink">
-            Step {currentIndex + 1} of {activeSteps.length}
+            {t.wizard.stepOf.replace('{current}', String(currentIndex + 1)).replace('{total}', String(activeSteps.length))}
           </span>
           <span className="text-sm font-semibold text-cta">
-            {activeSteps[currentIndex]?.label ?? ''}
+            {t.wizard.steps[activeSteps[currentIndex]?.id]?.label ?? activeSteps[currentIndex]?.label ?? ''}
           </span>
         </div>
         <div className="w-full bg-rule rounded-full h-2">
@@ -135,7 +137,7 @@ export default function WizardStepIndicator({
                     ? 'bg-cta'
                     : 'bg-rule'
                 } ${status !== 'upcoming' ? 'cursor-pointer' : 'cursor-default'}`}
-                aria-label={`Go to ${step.label}`}
+                aria-label={`Go to ${t.wizard.steps[step.id]?.label ?? step.label}`}
               />
             );
           })}

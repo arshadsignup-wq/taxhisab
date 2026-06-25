@@ -4,26 +4,29 @@ import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X, Calculator } from "lucide-react";
+import LanguageToggle from "./LanguageToggle";
+import { useTranslation } from "@/i18n";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Calculator", href: "/calculator" },
-  { label: "Guide", href: "/guide" },
-  { label: "Tax Rules", href: "/tax-rules" },
-  { label: "FAQ", href: "/faq" },
-  { label: "About", href: "/about" },
-] as const;
-
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const pathname = usePathname();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const t = useTranslation();
+
+  const navLinks = [
+    { label: t.nav.home, href: "/" },
+    { label: t.nav.calculator, href: "/calculator" },
+    { label: t.nav.guide, href: "/guide" },
+    { label: t.nav.taxRules, href: "/tax-rules" },
+    { label: t.nav.faq, href: "/faq" },
+    { label: t.nav.about, href: "/about" },
+  ];
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -104,9 +107,12 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       >
         {/* Close button */}
         <div className="flex items-center justify-between px-4 h-16 border-b border-rule">
-          <span className="font-display text-lg font-bold text-primary">
-            TaxHisab
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="font-display text-lg font-bold text-primary">
+              TaxHisab
+            </span>
+            <LanguageToggle />
+          </div>
           <button
             ref={closeButtonRef}
             type="button"
@@ -145,7 +151,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
               className="flex items-center justify-center gap-2 w-full bg-cta text-white font-semibold px-4 py-3 rounded-lg hover:bg-cta-dark text-sm"
             >
               <Calculator className="w-4 h-4" />
-              Calculate Tax
+              {t.nav.calculateTax}
             </Link>
           </div>
         </nav>

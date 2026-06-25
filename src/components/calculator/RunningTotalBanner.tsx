@@ -4,8 +4,10 @@ import { useMemo } from 'react';
 import { useCalculatorStore } from '@/store/calculator-store';
 import { calculateTax } from '@/lib/tax-engine/calculator';
 import { formatBDT } from '@/lib/formatters';
+import { useTranslation } from '@/i18n';
 
 export default function RunningTotalBanner() {
+  const t = useTranslation();
   const { formData } = useCalculatorStore();
 
   const estimate = useMemo(() => {
@@ -26,15 +28,15 @@ export default function RunningTotalBanner() {
         <div className="flex items-center justify-between gap-4 text-sm">
           <div className="flex items-center gap-4 text-ink-muted">
             <span>
-              Income: <span className="font-medium text-ink">{formatBDT(estimate.totalIncome)}</span>
+              {t.runningTotal.income} <span className="font-medium text-ink">{formatBDT(estimate.totalIncome)}</span>
             </span>
             <span className="hidden sm:inline">
-              Tax: <span className="font-medium text-ink">{formatBDT(estimate.grossTaxOnIncome)}</span>
+              {t.runningTotal.tax} <span className="font-medium text-ink">{formatBDT(estimate.grossTaxOnIncome)}</span>
             </span>
           </div>
           <div className="text-right">
             <span className="text-xs text-ink-muted block sm:inline sm:mr-2">
-              Estimated Payable
+              {t.runningTotal.estimatedPayable}
             </span>
             <span
               className={`font-bold text-lg ${
@@ -48,7 +50,7 @@ export default function RunningTotalBanner() {
               {formatBDT(Math.abs(estimate.netTaxPayable))}
             </span>
             {estimate.netTaxPayable < 0 && (
-              <span className="text-xs text-success ml-1">refund</span>
+              <span className="text-xs text-success ml-1">{t.runningTotal.refund}</span>
             )}
           </div>
         </div>

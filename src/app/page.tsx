@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from '@/i18n';
 import {
   Calculator,
   BookOpen,
@@ -15,6 +18,8 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
+  const t = useTranslation();
+
   return (
     <>
       {/* ─── HERO ─── */}
@@ -26,28 +31,25 @@ export default function HomePage() {
               {/* Left — copy */}
               <div className="text-white">
                 <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] mb-6">
-                  Know Your Exact Tax.{' '}
+                  {t.home.heroTitle}{' '}
                   <span className="bg-gradient-to-r from-white to-gold bg-clip-text text-transparent">
-                    File It Yourself.
+                    {t.home.heroTitleAccent}
                   </span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/85 max-w-lg mb-8 leading-relaxed">
-                  Our free calculator covers all six income heads, investment
-                  rebates, and slab-wise breakdowns for Bangladesh taxpayers.
-                  Then our guide walks you through filing on the NBR portal.
-                  No lawyer or consultant needed.
+                  {t.home.heroSubtitle}
                 </p>
 
                 {/* Trust badges */}
                 <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-white/70">
                   <span className="flex items-center gap-1.5">
-                    <Lock className="w-4 h-4" /> 100% Private
+                    <Lock className="w-4 h-4" /> {t.home.trustPrivate}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4" /> Free Forever
+                    <Sparkles className="w-4 h-4" /> {t.home.trustFree}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <UserX className="w-4 h-4" /> No Sign-Up
+                    <UserX className="w-4 h-4" /> {t.home.trustNoSignup}
                   </span>
                 </div>
 
@@ -57,14 +59,14 @@ export default function HomePage() {
                     className="inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-dark transition-colors text-base shadow-lg shadow-cta/30"
                   >
                     <Calculator className="w-5 h-5" />
-                    Calculate My Tax
+                    {t.home.calculateMyTax}
                   </Link>
                   <Link
                     href="/guide"
                     className="inline-flex items-center justify-center gap-2 border-2 border-white/40 text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/15 hover:border-white/60 transition-all text-base"
                   >
                     <BookOpen className="w-5 h-5" />
-                    Read the Filing Guide
+                    {t.home.readFilingGuide}
                   </Link>
                 </div>
               </div>
@@ -75,7 +77,7 @@ export default function HomePage() {
                   <div className="flex items-center gap-2 mb-5">
                     <div className="w-2.5 h-2.5 rounded-full bg-gold" />
                     <span className="text-xs font-bold text-ink-muted uppercase tracking-widest">
-                      Sample Result
+                      {t.home.sampleResult}
                     </span>
                   </div>
                   <table className="w-full text-sm mb-5">
@@ -126,11 +128,11 @@ export default function HomePage() {
           {/* Social proof stat bar */}
           <div className="border-t border-white/10 bg-white/5 backdrop-blur-sm">
             <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-sm text-white/70">
-              <span>10,000+ calculations</span>
+              <span>{t.home.socialProof1}</span>
               <span className="hidden sm:inline text-white/30">|</span>
-              <span>Updated for AY 2026-2027</span>
+              <span>{t.home.socialProof2}</span>
               <span className="hidden sm:inline text-white/30">|</span>
-              <span>Covers all 6 income heads</span>
+              <span>{t.home.socialProof3}</span>
             </div>
           </div>
         </div>
@@ -140,30 +142,32 @@ export default function HomePage() {
       <section id="features" className="py-8 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-4 text-ink">
-            Three Tools. Zero Guesswork.
+            {t.home.featuresTitle}
           </h2>
           <p className="text-ink-muted text-center mb-12 max-w-2xl mx-auto">
-            Most Bangladeshi taxpayers pay a consultant BDT 5,000-15,000 for a
-            simple return. These free tools put that knowledge in your hands.
+            {t.home.featuresSubtitle}
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             <FeatureCard
               icon={<Calculator className="w-6 h-6" />}
-              title="Tax Calculator"
-              description="Answer questions about your income and investments. Get a complete slab-wise breakdown with your exact payable amount in under 10 minutes."
+              title={t.home.featureCalcTitle}
+              description={t.home.featureCalcDesc}
               href="/calculator"
+              getStartedLabel={t.home.getStarted}
             />
             <FeatureCard
               icon={<BookOpen className="w-6 h-6" />}
-              title="Filing Guide"
-              description="Never used the NBR e-Return portal? Our guide covers every screen, from TIN registration to clicking Submit and downloading your receipt."
+              title={t.home.featureGuideTitle}
+              description={t.home.featureGuideDesc}
               href="/guide"
+              getStartedLabel={t.home.getStarted}
             />
             <FeatureCard
               icon={<Scale className="w-6 h-6" />}
-              title="Tax Rules Reference"
-              description="Current slabs, exemption limits, minimum tax rates, and surcharge rules for AY 2024-2025 through 2026-2027. All in one place."
+              title={t.home.featureRulesTitle}
+              description={t.home.featureRulesDesc}
               href="/tax-rules"
+              getStartedLabel={t.home.getStarted}
             />
           </div>
         </div>
@@ -173,11 +177,10 @@ export default function HomePage() {
       <section id="tax-slabs" className="py-8 md:py-20 bg-surface-sunken">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-3 text-ink">
-            How Much Will You Pay?
+            {t.home.slabsTitle}
           </h2>
           <p className="text-ink-muted text-center mb-10">
-            Bangladesh uses progressive tax slabs. You only pay the higher rate on
-            income above each threshold, not on your entire income.
+            {t.home.slabsSubtitle}
           </p>
           <div className="max-w-2xl mx-auto bg-white rounded-2xl elevation-2 overflow-hidden">
             <table className="w-full">
@@ -192,22 +195,18 @@ export default function HomePage() {
                 </tr>
               </thead>
               <tbody>
-                <SlabRow range="Up to BDT 3,75,000" rate="0%" intensity={0} />
-                <SlabRow range="Next BDT 3,00,000" rate="10%" intensity={1} />
-                <SlabRow range="Next BDT 4,00,000" rate="15%" intensity={2} />
-                <SlabRow range="Next BDT 5,00,000" rate="20%" intensity={3} />
-                <SlabRow range="Next BDT 20,00,000" rate="25%" intensity={4} />
-                <SlabRow range="Remaining amount" rate="30%" intensity={5} />
+                {t.home.slabRanges.map((slab, i) => (
+                  <SlabRow key={i} range={slab.range} rate={slab.rate} intensity={i} />
+                ))}
               </tbody>
             </table>
             <div className="px-6 py-3.5 bg-surface-sunken text-sm text-ink-muted border-t border-rule">
-              Women, seniors (65+), disabled persons, and freedom fighters get
-              higher tax-free thresholds.{' '}
+              {t.home.slabsFooter}{' '}
               <Link
                 href="/tax-rules/slabs"
                 className="text-cta font-semibold hover:underline"
               >
-                See all categories →
+                {t.home.seeAllCategories}
               </Link>
             </div>
           </div>
@@ -218,11 +217,10 @@ export default function HomePage() {
       <section id="how-it-works" className="py-8 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-4 text-ink">
-            From Confused to Filed in Four Steps
+            {t.home.howItWorksTitle}
           </h2>
           <p className="text-ink-muted text-center mb-14 max-w-xl mx-auto">
-            No tax jargon. No account required. Just answer a few questions and
-            get your result.
+            {t.home.howItWorksSubtitle}
           </p>
 
           {/* Desktop: horizontal timeline */}
@@ -233,26 +231,26 @@ export default function HomePage() {
                 <TimelineStep
                   step={1}
                   icon={<ClipboardList className="w-5 h-5" />}
-                  title="Enter Your Income"
-                  description="Salary, business, rent, capital gains. Enter what applies to you and skip the rest."
+                  title={t.home.step1Title}
+                  description={t.home.step1Desc}
                 />
                 <TimelineStep
                   step={2}
                   icon={<PieChart className="w-5 h-5" />}
-                  title="Claim Your Rebate"
-                  description="Add DPS, insurance, provident fund, and other investments. We calculate your 15% rebate."
+                  title={t.home.step2Title}
+                  description={t.home.step2Desc}
                 />
                 <TimelineStep
                   step={3}
                   icon={<Calculator className="w-5 h-5" />}
-                  title="See Your Breakdown"
-                  description="Get a slab-by-slab computation showing exactly how your tax was calculated."
+                  title={t.home.step3Title}
+                  description={t.home.step3Desc}
                 />
                 <TimelineStep
                   step={4}
                   icon={<FileCheck className="w-5 h-5" />}
-                  title="File on the NBR Portal"
-                  description="Follow our screen-by-screen guide to submit your e-Return and download your receipt."
+                  title={t.home.step4Title}
+                  description={t.home.step4Desc}
                 />
               </div>
             </div>
@@ -262,26 +260,26 @@ export default function HomePage() {
           <div className="md:hidden space-y-0">
             <VerticalTimelineStep
               step={1}
-              title="Enter Your Income"
-              description="Salary, business, rent, capital gains. Enter what applies to you and skip the rest."
+              title={t.home.step1Title}
+              description={t.home.step1Desc}
               isLast={false}
             />
             <VerticalTimelineStep
               step={2}
-              title="Claim Your Rebate"
-              description="Add DPS, insurance, provident fund, and other investments. We calculate your 15% rebate."
+              title={t.home.step2Title}
+              description={t.home.step2Desc}
               isLast={false}
             />
             <VerticalTimelineStep
               step={3}
-              title="See Your Breakdown"
-              description="Get a slab-by-slab computation showing exactly how your tax was calculated."
+              title={t.home.step3Title}
+              description={t.home.step3Desc}
               isLast={false}
             />
             <VerticalTimelineStep
               step={4}
-              title="File on the NBR Portal"
-              description="Follow our screen-by-screen guide to submit your e-Return and download your receipt."
+              title={t.home.step4Title}
+              description={t.home.step4Desc}
               isLast={true}
             />
           </div>
@@ -292,21 +290,13 @@ export default function HomePage() {
       <section id="why-file" className="py-8 md:py-20 bg-warning-light">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-3 text-ink">
-            Skipping Your Return? Here&apos;s What You Lose.
+            {t.home.whyFileTitle}
           </h2>
           <p className="text-ink-muted text-center mb-10 max-w-xl mx-auto">
-            A filed tax return is required for more services than most people
-            realize. Without one, you can&apos;t:
+            {t.home.whyFileSubtitle}
           </p>
           <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-            {[
-              'Get or renew your TIN certificate',
-              'Apply for bank loans or credit cards',
-              'Obtain a trade license or incorporate a company',
-              'Get a visa for foreign travel',
-              'Register property worth more than BDT 1 lakh',
-              'Set up utility connections in city corporation areas',
-            ].map((reason) => (
+            {t.home.whyFileReasons.map((reason) => (
               <div
                 key={reason}
                 className="flex items-start gap-3 bg-white rounded-xl p-5 elevation-1 border-l-4 border-l-warning"
@@ -326,18 +316,16 @@ export default function HomePage() {
             <Shield className="w-8 h-8 text-gold" />
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-5 text-white">
-            100% Private. No Server. No Sign-Up.
+            {t.home.privacyTitle}
           </h2>
           <p className="text-white/75 mb-10 max-w-xl mx-auto text-lg leading-relaxed">
-            Every calculation runs entirely in your browser. Your salary,
-            investments, and personal details never leave your device. There is
-            no account to create and nothing to download.
+            {t.home.privacySubtitle}
           </p>
           <Link
             href="/calculator"
             className="inline-flex items-center gap-2 bg-cta text-white font-bold px-10 py-4 rounded-xl hover:bg-cta-dark transition-colors text-lg shadow-lg shadow-cta/20"
           >
-            Calculate My Tax Now
+            {t.home.calculateMyTaxNow}
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
@@ -352,11 +340,13 @@ function FeatureCard({
   title,
   description,
   href,
+  getStartedLabel,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
   href: string;
+  getStartedLabel: string;
 }) {
   return (
     <Link
@@ -371,7 +361,7 @@ function FeatureCard({
       </h3>
       <p className="text-ink-muted text-sm leading-relaxed mb-4">{description}</p>
       <div className="text-cta font-semibold text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-        Get started <ArrowRight className="w-4 h-4" />
+        {getStartedLabel} <ArrowRight className="w-4 h-4" />
       </div>
     </Link>
   );

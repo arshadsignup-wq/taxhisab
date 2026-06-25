@@ -50,12 +50,21 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-plus-jakarta);
+  --font-bangla: var(--font-hind-siliguri);
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Bangla font for bn locale */
+html[lang="bn"] body {
+  font-family: var(--font-bangla), var(--font-sans), Arial, Helvetica, sans-serif;
+}
+html[lang="bn"] .font-display {
+  font-family: var(--font-bangla), var(--font-display), var(--font-sans), sans-serif;
 }
 
 /* Smooth scrolling */
@@ -230,6 +239,12 @@ input[type='number'] {
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* PDF page-break control */
+.pdf-section {
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 /* Print styles */

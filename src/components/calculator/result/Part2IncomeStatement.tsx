@@ -7,6 +7,7 @@ import type {
 } from '@/types/tax';
 import { formatBDT } from '@/lib/formatters';
 import ScheduleDisplay from './ScheduleDisplay';
+import { useTranslation } from '@/i18n';
 
 interface Part2Props {
   result: TaxCalculationResult;
@@ -14,6 +15,7 @@ interface Part2Props {
 }
 
 export default function Part2IncomeStatement({ result, formData }: Part2Props) {
+  const t = useTranslation();
   const [expandedSchedule, setExpandedSchedule] = useState<string | null>(null);
   const es = formData.profile.enabledSections;
 
@@ -31,7 +33,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es.salary) {
     incomeRows.push({
       serial: '1',
-      label: 'Income from Employment',
+      label: t.result.incomeLabels.salary,
       value: result.incomeBreakdown.salary,
       scheduleKey: 'salary',
     });
@@ -40,7 +42,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es['house-property']) {
     incomeRows.push({
       serial: '2',
-      label: 'Income from Rent / House Property',
+      label: t.result.incomeLabels.houseProperty,
       value: result.incomeBreakdown.houseProperty,
       scheduleKey: 'house-property',
     });
@@ -49,7 +51,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es.agricultural) {
     incomeRows.push({
       serial: '3',
-      label: 'Income from Agriculture',
+      label: t.result.incomeLabels.agricultural,
       value: result.incomeBreakdown.agricultural,
     });
   }
@@ -57,7 +59,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es.business) {
     incomeRows.push({
       serial: '4',
-      label: 'Income from Business / Profession',
+      label: t.result.incomeLabels.business,
       value: result.incomeBreakdown.business,
     });
   }
@@ -65,7 +67,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es['capital-gains']) {
     incomeRows.push({
       serial: '5',
-      label: 'Capital Gains',
+      label: t.result.incomeLabels.capitalGains,
       value: result.incomeBreakdown.capitalGains,
     });
   }
@@ -73,7 +75,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es['financial-assets']) {
     incomeRows.push({
       serial: '6',
-      label: 'Income from Financial Assets',
+      label: t.result.incomeLabels.financialAssets,
       value: result.incomeBreakdown.financialAssets,
     });
   }
@@ -81,16 +83,16 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
   if (es['other-income']) {
     incomeRows.push({
       serial: '7',
-      label: 'Income from Other Sources',
+      label: t.result.incomeLabels.otherIncome,
       value: result.incomeBreakdown.otherIncome,
     });
   }
 
   return (
-    <div className="bg-white rounded-xl border border-rule elevation-2 overflow-hidden">
+    <div className="pdf-section bg-white rounded-xl border border-rule elevation-2 overflow-hidden">
       <div className="bg-surface px-6 py-3 border-b border-rule">
         <h2 className="font-semibold text-ink">
-          Part 2: Statement of Total Income
+          {t.result.part2Title}
         </h2>
       </div>
       <div className="p-6">
@@ -98,13 +100,13 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
           <thead>
             <tr className="border-b border-rule">
               <th className="text-left pb-2 font-medium text-ink-muted w-8">
-                Sl.
+                {t.result.sl}
               </th>
               <th className="text-left pb-2 font-medium text-ink-muted">
-                Head of Income
+                {t.result.headOfIncome}
               </th>
               <th className="text-right pb-2 font-medium text-ink-muted">
-                Amount (BDT)
+                {t.result.amountBdt}
               </th>
             </tr>
           </thead>
@@ -129,8 +131,8 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
                         {row.scheduleKey && (
                           <span className="text-xs text-primary ml-2">
                             {expandedSchedule === row.scheduleKey
-                              ? 'Hide details'
-                              : 'Show details'}
+                              ? t.common.hideDetails
+                              : t.common.showDetails}
                           </span>
                         )}
                       </span>
@@ -149,7 +151,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
                       result.salaryBreakdown && (
                         <div className="px-4 py-3 bg-surface-sunken border-b border-rule/50">
                           <ScheduleDisplay
-                            title="Schedule 24A: Income from Employment"
+                            title={t.result.schedule24A}
                             rows={result.salaryBreakdown.items
                               .filter((i) => i.gross > 0)
                               .map((item, idx) => ({
@@ -164,7 +166,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
                               .concat([
                                 {
                                   serial: '',
-                                  label: 'Total Taxable Salary',
+                                  label: t.result.totalTaxableSalary,
                                   amount: result.salaryBreakdown.totalTaxable,
                                   isBold: true,
                                   isSubtotal: true,
@@ -179,13 +181,13 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
                       result.housePropertyBreakdown.length > 0 && (
                         <div className="px-4 py-3 bg-surface-sunken border-b border-rule/50">
                           <ScheduleDisplay
-                            title="Schedule 24B: Income from Rent"
+                            title={t.result.schedule24B}
                             rows={result.housePropertyBreakdown.map(
                               (item, idx) => ({
                                 serial: String(idx + 1),
                                 label: `${item.description} (${
                                   item.type === 'self_occupied'
-                                    ? 'Self-Occupied'
+                                    ? t.result.selfOccupied
                                     : `Rent: ${formatBDT(item.annualValue)}, Deductions: ${formatBDT(item.deductions)}`
                                 })`,
                                 amount: item.netIncome,
@@ -202,7 +204,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
             {/* Total Income */}
             <tr className="font-bold border-t border-rule">
               <td className="py-3 text-ink-muted">8</td>
-              <td className="py-3 text-ink">Total Income</td>
+              <td className="py-3 text-ink">{t.result.totalIncome}</td>
               <td className="py-3 text-right text-primary">
                 {formatBDT(result.totalIncome)}
               </td>
@@ -212,7 +214,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
             {result.taxExemptedTotal > 0 && (
               <tr className="border-b border-rule/50">
                 <td className="py-2 text-ink-muted">9</td>
-                <td className="py-2 text-ink">Less: Tax-Exempted Income</td>
+                <td className="py-2 text-ink">{t.result.lessTaxExempted}</td>
                 <td className="py-2 text-right font-medium text-success">
                   -{formatBDT(result.taxExemptedTotal)}
                 </td>
@@ -224,7 +226,7 @@ export default function Part2IncomeStatement({ result, formData }: Part2Props) {
               <td className="py-3 text-ink-muted">
                 {result.taxExemptedTotal > 0 ? '10' : '9'}
               </td>
-              <td className="py-3 text-ink">Total Taxable Income</td>
+              <td className="py-3 text-ink">{t.result.totalTaxableIncome}</td>
               <td className="py-3 text-right text-primary text-lg">
                 {formatBDT(result.taxableIncome)}
               </td>

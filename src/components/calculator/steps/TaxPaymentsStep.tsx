@@ -1,10 +1,12 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { TdsEntry, AdvanceTaxEntry } from '@/types/tax';
 import { formatBDT } from '@/lib/formatters';
 
 export default function TaxPaymentsStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const taxPayments = formData.taxPayments;
 
@@ -73,17 +75,17 @@ export default function TaxPaymentsStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Tax Payments
+          {t.calculator.taxPayments.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          IT-11GA Part C &mdash; Enter taxes you have already paid during the year. This includes TDS deducted by your employer or bank, advance tax you paid yourself, and any other tax payments. These amounts will be credited against your final tax liability.
+          {t.calculator.taxPayments.subtitle}
         </p>
       </div>
 
       {/* TDS Entries */}
       <div>
         <h3 className="text-sm font-medium text-ink mb-1">
-          Tax Deducted at Source (TDS)
+          {t.calculator.taxPayments.tdsTitle}
         </h3>
         <p className="text-xs text-ink-muted mb-3">
           Your employer, bank, or other payers may have already deducted tax from your income. Check your salary certificate or bank statements for TDS amounts.
@@ -92,7 +94,7 @@ export default function TaxPaymentsStep() {
           {taxPayments.tdsEntries.map((entry, index) => (
             <div key={index} className="flex gap-3 items-end">
               <div className="flex-1">
-                <label className="block text-xs text-ink-muted mb-1">Source</label>
+                <label className="block text-xs text-ink-muted mb-1">{t.calculator.taxPayments.tdsSource}</label>
                 <input
                   type="text"
                   placeholder="e.g., Salary, Bank Interest"
@@ -102,7 +104,7 @@ export default function TaxPaymentsStep() {
                 />
               </div>
               <div className="w-40">
-                <label className="block text-xs text-ink-muted mb-1">Amount</label>
+                <label className="block text-xs text-ink-muted mb-1">{t.calculator.taxPayments.tdsAmount}</label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted text-sm">
                     ৳
@@ -124,7 +126,7 @@ export default function TaxPaymentsStep() {
                   onClick={() => removeTds(index)}
                   className="text-error hover:text-error text-sm pb-2"
                 >
-                  Remove
+                  {t.common.remove}
                 </button>
               )}
             </div>
@@ -135,14 +137,14 @@ export default function TaxPaymentsStep() {
           onClick={addTds}
           className="mt-2 text-sm text-primary hover:text-primary-dark font-medium transition-colors"
         >
-          + Add TDS Entry
+          {t.calculator.taxPayments.addTds}
         </button>
       </div>
 
       {/* Advance Tax Entries */}
       <div>
         <h3 className="text-sm font-medium text-ink mb-1">
-          Advance Tax Paid
+          {t.calculator.taxPayments.advanceTaxTitle}
         </h3>
         <p className="text-xs text-ink-muted mb-3">
           If you paid tax in advance during the income year (quarterly payments), enter each payment with its date.
@@ -151,7 +153,7 @@ export default function TaxPaymentsStep() {
           {taxPayments.advanceTaxEntries.map((entry, index) => (
             <div key={index} className="flex gap-3 items-end">
               <div className="flex-1">
-                <label className="block text-xs text-ink-muted mb-1">Date</label>
+                <label className="block text-xs text-ink-muted mb-1">{t.calculator.taxPayments.advanceDate}</label>
                 <input
                   type="text"
                   placeholder="e.g., 15 Sep 2025"
@@ -163,7 +165,7 @@ export default function TaxPaymentsStep() {
                 />
               </div>
               <div className="w-40">
-                <label className="block text-xs text-ink-muted mb-1">Amount</label>
+                <label className="block text-xs text-ink-muted mb-1">{t.calculator.taxPayments.advanceAmount}</label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted text-sm">
                     ৳
@@ -189,7 +191,7 @@ export default function TaxPaymentsStep() {
                   onClick={() => removeAdvanceTax(index)}
                   className="text-error hover:text-error text-sm pb-2"
                 >
-                  Remove
+                  {t.common.remove}
                 </button>
               )}
             </div>
@@ -200,7 +202,7 @@ export default function TaxPaymentsStep() {
           onClick={addAdvanceTax}
           className="mt-2 text-sm text-primary hover:text-primary-dark font-medium transition-colors"
         >
-          + Add Advance Tax Entry
+          {t.calculator.taxPayments.addAdvance}
         </button>
       </div>
 
@@ -208,9 +210,9 @@ export default function TaxPaymentsStep() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-ink mb-1">
-            Tax Refund Adjustment
+            {t.calculator.taxPayments.fields.taxRefundAdjustment.label}
           </label>
-          <p className="text-xs text-ink-muted mb-1">If you have a tax refund from a previous year that NBR adjusted against this year&apos;s liability, enter that amount here.</p>
+          <p className="text-xs text-ink-muted mb-1">{t.calculator.taxPayments.fields.taxRefundAdjustment.hint}</p>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
               ৳
@@ -230,9 +232,9 @@ export default function TaxPaymentsStep() {
         </div>
         <div>
           <label className="block text-sm font-medium text-ink mb-1">
-            Tax Paid with This Return
+            {t.calculator.taxPayments.fields.taxPaidWithReturn.label}
           </label>
-          <p className="text-xs text-ink-muted mb-1">The amount of tax you are paying now along with this return (e.g., via bank challan at the time of filing).</p>
+          <p className="text-xs text-ink-muted mb-1">{t.calculator.taxPayments.fields.taxPaidWithReturn.hint}</p>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
               ৳
@@ -255,7 +257,7 @@ export default function TaxPaymentsStep() {
       {grandTotal > 0 && (
         <div className="bg-primary-light border border-primary/20 rounded-lg p-4">
           <p className="text-sm text-ink">
-            <span className="font-medium">Total Tax Already Paid:</span>{' '}
+            <span className="font-medium">{t.calculator.taxPayments.totalPaid}</span>{' '}
             <span className="text-primary font-bold text-lg">
               {formatBDT(grandTotal)}
             </span>
@@ -269,14 +271,14 @@ export default function TaxPaymentsStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

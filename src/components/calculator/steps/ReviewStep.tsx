@@ -2,16 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import { calculateTax } from '@/lib/tax-engine/calculator';
 import { formatBDT } from '@/lib/formatters';
-import {
-  CATEGORY_LABELS,
-  LOCATION_LABELS,
-  ASSESSMENT_YEAR_LABELS,
-} from '@/lib/tax-engine/constants';
 import type { WizardStepId } from '@/types/tax';
 
 export default function ReviewStep() {
+  const t = useTranslation();
   const router = useRouter();
   const { formData, prevStep, goToStep, setResult } = useCalculatorStore();
   const {
@@ -39,6 +36,15 @@ export default function ReviewStep() {
   const handleCalculate = () => {
     const result = calculateTax(formData);
     setResult(result);
+
+    // Increment localStorage calculation counter
+    try {
+      const count = parseInt(localStorage.getItem('taxhisab_calc_count') || '0', 10);
+      localStorage.setItem('taxhisab_calc_count', String(count + 1));
+    } catch {
+      // localStorage may be unavailable
+    }
+
     router.push('/calculator/result');
   };
 
@@ -115,61 +121,56 @@ export default function ReviewStep() {
     taxPayments.taxRefundAdjustment +
     taxPayments.taxPaidWithReturn;
 
-  const sections: {
-    label: string;
-    enabled: boolean;
-    step: WizardStepId;
-    total: number;
-  }[] = [
-    { label: 'Salary Income', enabled: es.salary, step: 'salary', total: salaryTotal },
-    { label: 'Business Income', enabled: es.business, step: 'business', total: businessTotal },
-    { label: 'House Property', enabled: es['house-property'], step: 'house-property', total: housePropertyTotal },
-    { label: 'Capital Gains', enabled: es['capital-gains'], step: 'capital-gains', total: capitalGainsTotal },
-    { label: 'Agricultural Income', enabled: es.agricultural, step: 'agricultural', total: agriculturalTotal },
-    { label: 'Financial Assets', enabled: es['financial-assets'], step: 'financial-assets', total: financialAssetsTotal },
-    { label: 'Other Income', enabled: es['other-income'], step: 'other-income', total: otherIncomeTotal },
-    { label: 'Tax-Exempted Income', enabled: es['tax-exempted'], step: 'tax-exempted', total: taxExemptedTotal },
-    { label: 'Investment & Rebate', enabled: es.investment, step: 'investment', total: investmentTotal },
-    { label: 'Assets & Liabilities (IT-10B)', enabled: es['assets-liabilities'], step: 'assets-liabilities', total: 0 },
+  const SECTION_KEYS: { key: string; step: WizardStepId; enabled: boolean; total: number }[] = [
+    { key: 'salary', step: 'salary', enabled: es.salary, total: salaryTotal },
+    { key: 'business', step: 'business', enabled: es.business, total: businessTotal },
+    { key: 'house-property', step: 'house-property', enabled: es['house-property'], total: housePropertyTotal },
+    { key: 'capital-gains', step: 'capital-gains', enabled: es['capital-gains'], total: capitalGainsTotal },
+    { key: 'agricultural', step: 'agricultural', enabled: es.agricultural, total: agriculturalTotal },
+    { key: 'financial-assets', step: 'financial-assets', enabled: es['financial-assets'], total: financialAssetsTotal },
+    { key: 'other-income', step: 'other-income', enabled: es['other-income'], total: otherIncomeTotal },
+    { key: 'tax-exempted', step: 'tax-exempted', enabled: es['tax-exempted'], total: taxExemptedTotal },
+    { key: 'investment', step: 'investment', enabled: es.investment, total: investmentTotal },
+    { key: 'assets-liabilities', step: 'assets-liabilities', enabled: es['assets-liabilities'], total: 0 },
   ];
 
-  const enabledSections = sections.filter((s) => s.enabled);
+  const enabledSections = SECTION_KEYS.filter((s) => s.enabled);
 
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Review & Calculate
+          {t.calculator.review.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          Review your information before calculating tax. Click Edit to make changes.
+          {t.calculator.review.subtitle}
         </p>
       </div>
 
       {/* Personal Info */}
       <div className="border border-rule rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold text-ink">Personal Information</h3>
+          <h3 className="font-semibold text-ink">{t.calculator.review.personalInfo}</h3>
           <button
             type="button"
             onClick={() => navigateToStep('profile')}
             className="text-sm text-primary hover:text-primary-dark font-medium transition-colors"
           >
-            Edit
+            {t.common.edit}
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
           <div>
             <span className="text-ink-muted">Category:</span>{' '}
-            <span className="font-medium">{CATEGORY_LABELS[personalInfo.category]}</span>
+            <span className="font-medium">{t.labels.categories[personalInfo.category]}</span>
           </div>
           <div>
             <span className="text-ink-muted">Location:</span>{' '}
-            <span className="font-medium">{LOCATION_LABELS[personalInfo.location]}</span>
+            <span className="font-medium">{t.labels.locations[personalInfo.location]}</span>
           </div>
           <div>
             <span className="text-ink-muted">Year:</span>{' '}
-            <span className="font-medium">{ASSESSMENT_YEAR_LABELS[personalInfo.assessmentYear]}</span>
+            <span className="font-medium">{t.labels.assessmentYears[personalInfo.assessmentYear]}</span>
           </div>
           {personalInfo.name && (
             <div>
@@ -190,25 +191,25 @@ export default function ReviewStep() {
       {enabledSections.map((section) => (
         <div key={section.step} className="border border-rule rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="font-semibold text-ink">{section.label}</h3>
+            <h3 className="font-semibold text-ink">{t.calculator.review.sectionLabels[section.key]}</h3>
             <button
               type="button"
               onClick={() => navigateToStep(section.step)}
               className="text-sm text-primary hover:text-primary-dark font-medium transition-colors"
             >
-              Edit
+              {t.common.edit}
             </button>
           </div>
           {section.step === 'tax-exempted' ? (
             <div className="flex justify-between text-sm font-medium">
-              <span>Total Exempted</span>
+              <span>{t.calculator.review.totalExempted}</span>
               <span className="text-success">-{formatBDT(section.total)}</span>
             </div>
           ) : section.step === 'assets-liabilities' ? (
-            <p className="text-sm text-ink-muted italic">IT-10B data entered</p>
+            <p className="text-sm text-ink-muted italic">{t.calculator.review.it10bEntered}</p>
           ) : (
             <div className="flex justify-between text-sm font-medium">
-              <span>Total</span>
+              <span>{t.common.total}</span>
               <span className="text-primary">{formatBDT(section.total)}</span>
             </div>
           )}
@@ -218,17 +219,17 @@ export default function ReviewStep() {
       {/* Tax Payments Summary */}
       <div className="border border-rule rounded-lg p-4">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="font-semibold text-ink">Tax Already Paid</h3>
+          <h3 className="font-semibold text-ink">{t.calculator.review.taxAlreadyPaid}</h3>
           <button
             type="button"
             onClick={() => navigateToStep('tax-payments')}
             className="text-sm text-primary hover:text-primary-dark font-medium transition-colors"
           >
-            Edit
+            {t.common.edit}
           </button>
         </div>
         <div className="flex justify-between text-sm font-medium">
-          <span>Total</span>
+          <span>{t.common.total}</span>
           <span className="text-primary">{formatBDT(taxPaidTotal)}</span>
         </div>
       </div>
@@ -240,14 +241,14 @@ export default function ReviewStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={handleCalculate}
           className="bg-cta hover:bg-cta-dark text-white px-8 py-3 rounded-lg font-bold text-lg transition-colors shadow-lg shadow-cta/20"
         >
-          Calculate Tax
+          {t.calculator.review.calculateTax}
         </button>
       </div>
     </div>

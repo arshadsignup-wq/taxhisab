@@ -1,14 +1,21 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { HouseProperty, PropertyType } from '@/types/tax';
 
-const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
-  self_occupied: 'Self-Occupied',
-  let_out: 'Let Out (Rented)',
-};
+const PROPERTY_TYPES: PropertyType[] = ['self_occupied', 'let_out'];
+
+const LET_OUT_FIELD_KEYS: (keyof HouseProperty)[] = [
+  'annualRent',
+  'municipalTax',
+  'insurancePremium',
+  'vacancyAllowance',
+  'loanInterest',
+];
 
 export default function HousePropertyStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const houseProperty = formData.houseProperty;
 
@@ -63,17 +70,17 @@ export default function HousePropertyStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          House Property Income
+          {t.calculator.houseProperty.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          Schedule 24B &mdash; If you receive rent from property you own, or own a self-occupied home, enter the details here. Each property should be entered separately.
+          {t.calculator.houseProperty.subtitle}
         </p>
       </div>
 
       <div className="bg-info-light border border-info/20 rounded-lg p-4">
-        <p className="text-sm text-ink font-medium mb-1">How deductions work</p>
+        <p className="text-sm text-ink font-medium mb-1">{t.calculator.houseProperty.infoTitle}</p>
         <p className="text-xs text-ink-muted">
-          For let-out property, NBR allows a standard repair deduction of 25% of annual value, plus actual municipal tax, insurance premium, and loan interest. For self-occupied property, only loan interest (max BDT 2,00,000) is deductible.
+          {t.calculator.houseProperty.infoText}
         </p>
       </div>
 
@@ -85,7 +92,7 @@ export default function HousePropertyStep() {
           >
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-ink">
-                Property {index + 1}
+                {t.calculator.houseProperty.propertyLabel} {index + 1}
               </h3>
               {houseProperty.properties.length > 1 && (
                 <button
@@ -93,7 +100,7 @@ export default function HousePropertyStep() {
                   onClick={() => removeProperty(index)}
                   className="text-sm text-error hover:text-error/80 font-medium transition-colors"
                 >
-                  Remove
+                  {t.calculator.houseProperty.removeProperty}
                 </button>
               )}
             </div>
@@ -101,9 +108,9 @@ export default function HousePropertyStep() {
             {/* Description */}
             <div>
               <label className="block text-sm font-medium text-ink mb-1">
-                Property Description
+                {t.calculator.houseProperty.fields.description.label}
               </label>
-              <p className="text-xs text-ink-muted mb-1">A short description to identify this property, e.g., &quot;Flat at Dhanmondi&quot; or &quot;2nd Floor, Mirpur.&quot;</p>
+              <p className="text-xs text-ink-muted mb-1">{t.calculator.houseProperty.fields.description.hint}</p>
               <input
                 type="text"
                 placeholder="e.g., Flat at Dhanmondi"
@@ -118,7 +125,7 @@ export default function HousePropertyStep() {
             {/* Property Type */}
             <div>
               <label className="block text-sm font-medium text-ink mb-1">
-                Property Type
+                {t.calculator.houseProperty.typeLabel}
               </label>
               <p className="text-xs text-ink-muted mb-1">Self-Occupied: a home you live in (no rental income). Let Out: a property you rent to others.</p>
               <select
@@ -132,30 +139,22 @@ export default function HousePropertyStep() {
                 }
                 className="w-full px-4 py-2 border border-rule rounded-lg focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta bg-white"
               >
-                {(Object.keys(PROPERTY_TYPE_LABELS) as PropertyType[]).map(
-                  (type) => (
-                    <option key={type} value={type}>
-                      {PROPERTY_TYPE_LABELS[type]}
-                    </option>
-                  )
-                )}
+                {PROPERTY_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {t.calculator.houseProperty.typeOptions[type]}
+                  </option>
+                ))}
               </select>
             </div>
 
             {property.type === 'let_out' && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {([
-                  ['annualRent', 'Annual Rent / Value', 'Total rent received (or receivable) during the income year for this property.'],
-                  ['municipalTax', 'Municipal Tax Paid', 'City corporation / municipality holding tax or property tax paid during the year.'],
-                  ['insurancePremium', 'Insurance Premium', 'Fire or property insurance premium paid for this property, if any.'],
-                  ['vacancyAllowance', 'Vacancy Allowance', 'Deduction for period the property was vacant and no rent was received.'],
-                  ['loanInterest', 'Home Loan Interest', 'Interest paid on loan taken to purchase or construct this property.'],
-                ] as [keyof HouseProperty, string, string][]).map(([key, label, hint]) => (
+                {LET_OUT_FIELD_KEYS.map((key) => (
                   <div key={key}>
                     <label className="block text-sm font-medium text-ink mb-1">
-                      {label}
+                      {t.calculator.houseProperty.fields[key].label}
                     </label>
-                    <p className="text-xs text-ink-muted mb-1">{hint}</p>
+                    <p className="text-xs text-ink-muted mb-1">{t.calculator.houseProperty.fields[key].hint}</p>
                     <div className="relative">
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                         ৳
@@ -186,7 +185,7 @@ export default function HousePropertyStep() {
           onClick={addProperty}
           className="w-full border-2 border-dashed border-rule hover:border-primary text-ink-muted hover:text-primary py-3 rounded-lg font-medium transition-colors"
         >
-          + Add Another Property
+          {t.calculator.houseProperty.addProperty}
         </button>
       </div>
 
@@ -196,14 +195,14 @@ export default function HousePropertyStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

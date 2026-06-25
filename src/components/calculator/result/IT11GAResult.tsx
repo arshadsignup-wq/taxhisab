@@ -1,5 +1,6 @@
 'use client';
 
+import { forwardRef } from 'react';
 import type { TaxCalculationResult, CalculatorFormData } from '@/types/tax';
 import Part1PersonalInfo from './Part1PersonalInfo';
 import Part2IncomeStatement from './Part2IncomeStatement';
@@ -12,17 +13,21 @@ interface IT11GAResultProps {
   formData: CalculatorFormData;
 }
 
-export default function IT11GAResult({ result, formData }: IT11GAResultProps) {
-  return (
-    <div className="space-y-6">
-      <Part1PersonalInfo personalInfo={formData.personalInfo} />
-      <Part2IncomeStatement result={result} formData={formData} />
-      <Part3TaxComputation result={result} />
-      <Part4TaxPayments
-        result={result}
-        taxPayments={formData.taxPayments}
-      />
-      <Part5IT10B result={result} />
-    </div>
-  );
-}
+const IT11GAResult = forwardRef<HTMLDivElement, IT11GAResultProps>(
+  function IT11GAResult({ result, formData }, ref) {
+    return (
+      <div ref={ref} className="space-y-6">
+        <Part1PersonalInfo personalInfo={formData.personalInfo} />
+        <Part2IncomeStatement result={result} formData={formData} />
+        <Part3TaxComputation result={result} />
+        <Part4TaxPayments
+          result={result}
+          taxPayments={formData.taxPayments}
+        />
+        <Part5IT10B result={result} />
+      </div>
+    );
+  }
+);
+
+export default IT11GAResult;

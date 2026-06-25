@@ -1,16 +1,14 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { CapitalGain, CapitalAssetType } from '@/types/tax';
 import { formatBDT } from '@/lib/formatters';
 
-const ASSET_TYPE_LABELS: Record<CapitalAssetType, string> = {
-  property: 'Property / Real Estate',
-  shares: 'Shares / Securities',
-  other: 'Other Assets',
-};
+const ASSET_TYPES: CapitalAssetType[] = ['property', 'shares', 'other'];
 
 export default function CapitalGainsStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const capitalGains = formData.capitalGains;
 
@@ -82,17 +80,17 @@ export default function CapitalGainsStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Capital Gains
+          {t.calculator.capitalGains.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          Profit from selling capital assets like land, buildings, shares, or other valuables during the income year. Each asset sold should be entered separately.
+          {t.calculator.capitalGains.subtitle}
         </p>
       </div>
 
       <div className="bg-info-light border border-info/20 rounded-lg p-4">
-        <p className="text-sm text-ink font-medium mb-1">How capital gains are calculated</p>
+        <p className="text-sm text-ink font-medium mb-1">{t.calculator.capitalGains.infoTitle}</p>
         <p className="text-xs text-ink-muted">
-          Capital Gain = Sale Price minus Cost of Acquisition minus Cost of Improvement. Gains from transfer of land/building are subject to a flat rate of 15% or the applicable slab rate, whichever is lower.
+          {t.calculator.capitalGains.infoText}
         </p>
       </div>
 
@@ -112,7 +110,7 @@ export default function CapitalGainsStep() {
                   onClick={() => removeGain(index)}
                   className="text-sm text-error hover:text-error/80 font-medium transition-colors"
                 >
-                  Remove
+                  {t.calculator.capitalGains.removeGain}
                 </button>
               )}
             </div>
@@ -120,9 +118,9 @@ export default function CapitalGainsStep() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-ink mb-1">
-                  Description
+                  {t.calculator.capitalGains.fields.description.label}
                 </label>
-                <p className="text-xs text-ink-muted mb-1">Describe the asset sold, e.g., &quot;Plot at Uttara Sector 10&quot; or &quot;500 shares of BRAC Bank.&quot;</p>
+                <p className="text-xs text-ink-muted mb-1">{t.calculator.capitalGains.fields.description.hint}</p>
                 <input
                   type="text"
                   placeholder="e.g., Plot at Uttara"
@@ -136,7 +134,7 @@ export default function CapitalGainsStep() {
 
               <div>
                 <label className="block text-sm font-medium text-ink mb-1">
-                  Asset Type
+                  {t.calculator.capitalGains.assetTypeLabel}
                 </label>
                 <p className="text-xs text-ink-muted mb-1">Property: land, flat, building. Shares: listed/unlisted company stocks. Other: jewelry, artwork, etc.</p>
                 <select
@@ -150,11 +148,9 @@ export default function CapitalGainsStep() {
                   }
                   className="w-full px-4 py-2 border border-rule rounded-lg focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta bg-white"
                 >
-                  {(
-                    Object.keys(ASSET_TYPE_LABELS) as CapitalAssetType[]
-                  ).map((type) => (
+                  {ASSET_TYPES.map((type) => (
                     <option key={type} value={type}>
-                      {ASSET_TYPE_LABELS[type]}
+                      {t.calculator.capitalGains.assetTypes[type]}
                     </option>
                   ))}
                 </select>
@@ -162,9 +158,9 @@ export default function CapitalGainsStep() {
 
               <div>
                 <label className="block text-sm font-medium text-ink mb-1">
-                  Date of Transfer
+                  {t.calculator.capitalGains.fields.dateOfTransfer.label}
                 </label>
-                <p className="text-xs text-ink-muted mb-1">The date you sold or transferred the asset.</p>
+                <p className="text-xs text-ink-muted mb-1">{t.calculator.capitalGains.fields.dateOfTransfer.hint}</p>
                 <input
                   type="text"
                   placeholder="e.g., 15 Jan 2025"
@@ -178,9 +174,9 @@ export default function CapitalGainsStep() {
 
               <div>
                 <label className="block text-sm font-medium text-ink mb-1">
-                  Sale Price
+                  {t.calculator.capitalGains.fields.salePrice.label}
                 </label>
-                <p className="text-xs text-ink-muted mb-1">The amount you received (or the fair market value) for selling the asset.</p>
+                <p className="text-xs text-ink-muted mb-1">{t.calculator.capitalGains.fields.salePrice.hint}</p>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                     ৳
@@ -203,9 +199,9 @@ export default function CapitalGainsStep() {
 
               <div>
                 <label className="block text-sm font-medium text-ink mb-1">
-                  Cost of Acquisition
+                  {t.calculator.capitalGains.fields.costOfAcquisition.label}
                 </label>
-                <p className="text-xs text-ink-muted mb-1">The price you originally paid to buy or acquire the asset.</p>
+                <p className="text-xs text-ink-muted mb-1">{t.calculator.capitalGains.fields.costOfAcquisition.hint}</p>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                     ৳
@@ -228,9 +224,9 @@ export default function CapitalGainsStep() {
 
               <div>
                 <label className="block text-sm font-medium text-ink mb-1">
-                  Cost of Improvement
+                  {t.calculator.capitalGains.fields.costOfImprovement.label}
                 </label>
-                <p className="text-xs text-ink-muted mb-1">Any additional money spent to improve or develop the asset after purchase (renovation, construction, etc.).</p>
+                <p className="text-xs text-ink-muted mb-1">{t.calculator.capitalGains.fields.costOfImprovement.hint}</p>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                     ৳
@@ -272,7 +268,7 @@ export default function CapitalGainsStep() {
           onClick={addGain}
           className="w-full border-2 border-dashed border-rule hover:border-primary text-ink-muted hover:text-primary py-3 rounded-lg font-medium transition-colors"
         >
-          + Add Another Asset
+          {t.calculator.capitalGains.addGain}
         </button>
       </div>
 
@@ -282,14 +278,14 @@ export default function CapitalGainsStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

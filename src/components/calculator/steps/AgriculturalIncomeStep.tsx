@@ -1,11 +1,13 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { AgriculturalExpenseMethod } from '@/types/tax';
 import { AGRICULTURAL_FLAT_EXPENSE_RATE } from '@/lib/tax-engine/constants';
 import { formatBDT } from '@/lib/formatters';
 
 export default function AgriculturalIncomeStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const agricultural = formData.agricultural;
 
@@ -27,26 +29,26 @@ export default function AgriculturalIncomeStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Agricultural Income
+          {t.calculator.agricultural.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          Income from farming, fisheries, poultry, dairy, or sale of agricultural produce from your own land.
+          {t.calculator.agricultural.subtitle}
         </p>
       </div>
 
       <div className="bg-info-light border border-info/20 rounded-lg p-4">
-        <p className="text-sm text-ink font-medium mb-1">About agricultural income</p>
+        <p className="text-sm text-ink font-medium mb-1">{t.calculator.agricultural.infoTitle}</p>
         <p className="text-xs text-ink-muted">
-          Agricultural income up to BDT 2,00,000 is generally exempt from tax. The net income calculated here is added to your total income for slab-rate purposes.
+          {t.calculator.agricultural.infoText}
         </p>
       </div>
 
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-ink mb-1">
-            Gross Agricultural Income
+            {t.calculator.agricultural.fields.grossIncome.label}
           </label>
-          <p className="text-xs text-ink-muted mb-1">Total income from all agricultural activities during the year, before deducting expenses.</p>
+          <p className="text-xs text-ink-muted mb-1">{t.calculator.agricultural.fields.grossIncome.hint}</p>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
               ৳
@@ -65,7 +67,7 @@ export default function AgriculturalIncomeStep() {
 
         <fieldset>
           <legend className="block text-sm font-medium text-ink mb-3">
-            Expense Deduction Method
+            {t.calculator.agricultural.expenseMethodLabel}
           </legend>
           <div className="space-y-2">
             <label className="flex items-center gap-3 p-3 border border-rule rounded-lg cursor-pointer hover:bg-surface-sunken transition-colors has-[:checked]:border-cta has-[:checked]:bg-cta-light">
@@ -79,7 +81,7 @@ export default function AgriculturalIncomeStep() {
               />
               <div>
                 <span className="text-sm font-medium text-ink">
-                  Flat Rate (60%)
+                  {t.calculator.agricultural.flatRate}
                 </span>
                 <p className="text-xs text-ink-muted">
                   NBR allows a standard 60% deduction without needing receipts.
@@ -98,7 +100,7 @@ export default function AgriculturalIncomeStep() {
               />
               <div>
                 <span className="text-sm font-medium text-ink">
-                  Actual Expenses
+                  {t.calculator.agricultural.actual}
                 </span>
                 <p className="text-xs text-ink-muted">
                   Deduct your actual farming expenses (seeds, fertilizer, labor, etc.). Keep receipts as proof.
@@ -111,9 +113,9 @@ export default function AgriculturalIncomeStep() {
         {agricultural.expenseMethod === 'actual' && (
           <div>
             <label className="block text-sm font-medium text-ink mb-1">
-              Actual Expenses
+              {t.calculator.agricultural.fields.actualExpenses.label}
             </label>
-            <p className="text-xs text-ink-muted mb-1">Total amount spent on agricultural activities during the year.</p>
+            <p className="text-xs text-ink-muted mb-1">{t.calculator.agricultural.fields.actualExpenses.hint}</p>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                 ৳
@@ -145,7 +147,7 @@ export default function AgriculturalIncomeStep() {
                 )}
               </p>
               <p className="text-sm text-ink">
-                <span className="font-medium">Net Agricultural Income:</span>{' '}
+                <span className="font-medium">{t.calculator.agricultural.netIncome}</span>{' '}
                 <span className="text-primary font-bold text-lg">
                   {formatBDT(netIncome)}
                 </span>
@@ -161,14 +163,14 @@ export default function AgriculturalIncomeStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

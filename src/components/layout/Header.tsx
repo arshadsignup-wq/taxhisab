@@ -5,19 +5,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Calculator } from "lucide-react";
 import MobileNav from "./MobileNav";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Calculator", href: "/calculator" },
-  { label: "Guide", href: "/guide" },
-  { label: "Tax Rules", href: "/tax-rules" },
-  { label: "FAQ", href: "/faq" },
-  { label: "About", href: "/about" },
-] as const;
+import LanguageToggle from "./LanguageToggle";
+import { useTranslation } from "@/i18n";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslation();
+
+  const navLinks = [
+    { label: t.nav.home, href: "/" },
+    { label: t.nav.calculator, href: "/calculator" },
+    { label: t.nav.guide, href: "/guide" },
+    { label: t.nav.taxRules, href: "/tax-rules" },
+    { label: t.nav.faq, href: "/faq" },
+    { label: t.nav.about, href: "/about" },
+  ];
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -51,12 +54,13 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
+              <LanguageToggle />
               <Link
                 href="/calculator"
                 className="ml-3 inline-flex items-center gap-1.5 bg-cta text-white font-semibold px-4 py-2 rounded-lg hover:bg-cta-dark text-sm"
               >
                 <Calculator className="w-4 h-4" />
-                Calculate Tax
+                {t.nav.calculateTax}
               </Link>
             </nav>
 

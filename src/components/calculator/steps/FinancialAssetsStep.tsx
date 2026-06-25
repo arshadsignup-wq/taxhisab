@@ -1,19 +1,21 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { FinancialAssetsIncome } from '@/types/tax';
 import { formatBDT } from '@/lib/formatters';
 
-const FIELDS: { key: keyof FinancialAssetsIncome; label: string; hint: string }[] = [
-  { key: 'bankInterest', label: 'Interest on Bank Deposits', hint: 'Interest earned on savings accounts, fixed deposits (FDR), and other bank deposits during the year.' },
-  { key: 'savingsCertificateInterest', label: 'Interest on Savings Certificates', hint: 'Interest or profit from Sanchayapatra (National Savings Certificates) like 5-year, Family, Pensioner\'s, etc.' },
-  { key: 'securitiesInterest', label: 'Interest on Securities', hint: 'Interest from government securities, treasury bills/bonds, or debentures.' },
-  { key: 'listedDividends', label: 'Dividends (Listed Companies)', hint: 'Dividend income from companies listed on DSE/CSE stock exchanges.' },
-  { key: 'unlistedDividends', label: 'Dividends (Unlisted Companies)', hint: 'Dividend income from private or unlisted companies.' },
-  { key: 'otherFinancialIncome', label: 'Other Financial Income', hint: 'Any other income from financial assets not covered above (e.g., mutual fund gains).' },
+const FIELD_KEYS: (keyof FinancialAssetsIncome)[] = [
+  'bankInterest',
+  'savingsCertificateInterest',
+  'securitiesInterest',
+  'listedDividends',
+  'unlistedDividends',
+  'otherFinancialIncome',
 ];
 
 export default function FinancialAssetsStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const financialAssets = formData.financialAssets;
 
@@ -21,8 +23,8 @@ export default function FinancialAssetsStep() {
     updateFormData('financialAssets', { [key]: value });
   };
 
-  const total = FIELDS.reduce(
-    (sum, { key }) => sum + (financialAssets[key] || 0),
+  const total = FIELD_KEYS.reduce(
+    (sum, key) => sum + (financialAssets[key] || 0),
     0
   );
 
@@ -30,27 +32,27 @@ export default function FinancialAssetsStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Income from Financial Assets
+          {t.calculator.financialAssets.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          IT-11GA Serial 6 &mdash; Income earned from your savings, investments, and financial instruments. This is a separate income head from other sources.
+          {t.calculator.financialAssets.subtitle}
         </p>
       </div>
 
       <div className="bg-info-light border border-info/20 rounded-lg p-4">
-        <p className="text-sm text-ink font-medium mb-1">About TDS on financial income</p>
+        <p className="text-sm text-ink font-medium mb-1">{t.calculator.financialAssets.infoTitle}</p>
         <p className="text-xs text-ink-muted">
-          Banks and financial institutions deduct TDS (Tax Deducted at Source) on interest and dividends. Enter the gross amount here (before TDS deduction). You can claim the TDS credit in the Tax Payments step later.
+          {t.calculator.financialAssets.infoText}
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {FIELDS.map(({ key, label, hint }) => (
+        {FIELD_KEYS.map((key) => (
           <div key={key}>
             <label className="block text-sm font-medium text-ink mb-1">
-              {label}
+              {t.calculator.financialAssets.fields[key].label}
             </label>
-            <p className="text-xs text-ink-muted mb-1">{hint}</p>
+            <p className="text-xs text-ink-muted mb-1">{t.calculator.financialAssets.fields[key].hint}</p>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                 ৳
@@ -86,14 +88,14 @@ export default function FinancialAssetsStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

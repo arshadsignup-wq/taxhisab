@@ -1,9 +1,11 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import { formatBDT } from '@/lib/formatters';
 
 export default function BusinessIncomeStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const business = formData.business;
 
@@ -30,17 +32,17 @@ export default function BusinessIncomeStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Business / Professional Income
+          {t.calculator.business.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          Schedule 24C &mdash; Income from your business, trade, profession, or freelancing.
+          {t.calculator.business.subtitle}
         </p>
       </div>
 
       <div className="bg-info-light border border-info/20 rounded-lg p-4">
-        <p className="text-sm text-ink font-medium mb-1">How to calculate business income</p>
+        <p className="text-sm text-ink font-medium mb-1">{t.calculator.business.infoTitle}</p>
         <p className="text-xs text-ink-muted">
-          Net Profit = Gross Receipts minus Allowable Expenses. If you maintain books of accounts, use the figures from your profit &amp; loss statement.
+          {t.calculator.business.infoText}
         </p>
       </div>
 
@@ -54,18 +56,18 @@ export default function BusinessIncomeStep() {
           />
           <div>
             <span className="text-sm font-medium text-ink">
-              I am a freelancer / IT professional
+              {t.calculator.business.freelancerLabel}
             </span>
-            <p className="text-xs text-ink-muted">Check this if you earn from freelancing, IT services, or software exports. Freelance IT income may have special tax treatment.</p>
+            <p className="text-xs text-ink-muted">{t.calculator.business.freelancerHint}</p>
           </div>
         </label>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-ink mb-1">
-              Gross Receipts / Turnover
+              {t.calculator.business.fields.grossReceipts.label}
             </label>
-            <p className="text-xs text-ink-muted mb-1">Your total business revenue or sales during the income year, before deducting any expenses.</p>
+            <p className="text-xs text-ink-muted mb-1">{t.calculator.business.fields.grossReceipts.hint}</p>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                 ৳
@@ -87,9 +89,9 @@ export default function BusinessIncomeStep() {
 
           <div>
             <label className="block text-sm font-medium text-ink mb-1">
-              Allowable Expenses
+              {t.calculator.business.fields.expenses.label}
             </label>
-            <p className="text-xs text-ink-muted mb-1">Total business expenses you can deduct: rent, salaries, utilities, supplies, depreciation, etc. Keep supporting documents.</p>
+            <p className="text-xs text-ink-muted mb-1">{t.calculator.business.fields.expenses.hint}</p>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                 ৳
@@ -130,14 +132,14 @@ export default function BusinessIncomeStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

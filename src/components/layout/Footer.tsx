@@ -1,21 +1,26 @@
+'use client';
+
 import Link from "next/link";
 import { Shield } from "lucide-react";
-
-const quickLinks = [
-  { label: "Calculator", href: "/calculator" },
-  { label: "Guide", href: "/guide" },
-  { label: "Tax Rules", href: "/tax-rules" },
-  { label: "FAQ", href: "/faq" },
-] as const;
-
-const getStartedLinks = [
-  { label: "Tax Calculator", href: "/calculator" },
-  { label: "Filing Guide", href: "/guide" },
-  { label: "Tax Slabs", href: "/tax-rules/slabs" },
-  { label: "About TaxHisab", href: "/about" },
-] as const;
+import { useTranslation } from "@/i18n";
 
 export default function Footer() {
+  const t = useTranslation();
+
+  const quickLinks = [
+    { label: t.nav.calculator, href: "/calculator" },
+    { label: t.nav.guide, href: "/guide" },
+    { label: t.nav.taxRules, href: "/tax-rules" },
+    { label: t.nav.faq, href: "/faq" },
+  ];
+
+  const getStartedLinks = [
+    { label: t.footer.taxCalculator, href: "/calculator" },
+    { label: t.footer.filingGuide, href: "/guide" },
+    { label: t.footer.taxSlabs, href: "/tax-rules/slabs" },
+    { label: t.footer.aboutTaxHisab, href: "/about" },
+  ];
+
   return (
     <footer className="bg-ink text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -26,15 +31,14 @@ export default function Footer() {
               TaxHisab
             </h3>
             <p className="text-sm text-white/60 leading-relaxed">
-              Free income tax calculator and e-Return filing guide for
-              Bangladesh taxpayers.
+              {t.footer.tagline}
             </p>
           </div>
 
           {/* Column 2: Quick Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-gold mb-5">
-              Quick Links
+              {t.footer.quickLinks}
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -53,7 +57,7 @@ export default function Footer() {
           {/* Column 3: Get Started */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-gold mb-5">
-              Get Started
+              {t.footer.getStarted}
             </h4>
             <ul className="space-y-3">
               {getStartedLinks.map((link) => (
@@ -72,21 +76,20 @@ export default function Footer() {
           {/* Column 4: Important Notice */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-gold mb-5">
-              Important
+              {t.footer.important}
             </h4>
             <p className="text-sm text-white/60 leading-relaxed">
-              This tool provides estimates only. Consult a tax professional for
-              complex situations. Not affiliated with NBR.
+              {t.footer.importantText}
             </p>
           </div>
         </div>
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/40">
-          <span>&copy; {new Date().getFullYear()} TaxHisab. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} {t.footer.copyright}</span>
           <span className="flex items-center gap-1.5">
             <Shield className="w-3.5 h-3.5" />
-            Your data never leaves your browser
+            {t.footer.privacyNote}
           </span>
         </div>
       </div>

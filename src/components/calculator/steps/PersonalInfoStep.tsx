@@ -1,8 +1,12 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
+
+const FIELD_KEYS = ['name', 'tin', 'nid', 'circle', 'zone', 'employerName', 'spouseName', 'spouseTin'] as const;
 
 export default function PersonalInfoStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const pi = formData.personalInfo;
 
@@ -10,26 +14,14 @@ export default function PersonalInfoStep() {
     updateFormData('personalInfo', { [field]: value });
   };
 
-  const textFields: { key: keyof typeof pi; label: string; placeholder: string; hint: string }[] = [
-    { key: 'name', label: 'Full Name', placeholder: 'As per NID', hint: 'Enter your full name exactly as it appears on your National ID card.' },
-    { key: 'tin', label: 'TIN (Taxpayer ID Number)', placeholder: '12-digit TIN', hint: 'Your 12-digit Taxpayer Identification Number. Find it on your TIN certificate.' },
-    { key: 'nid', label: 'National ID Number', placeholder: 'NID or Passport No.', hint: 'Your National ID (NID) number or Smart Card number. You can also use your passport number.' },
-    { key: 'circle', label: 'Tax Circle', placeholder: 'e.g., Circle-301', hint: 'Your assigned tax circle (e.g., Circle-301). This is printed on your TIN certificate.' },
-    { key: 'zone', label: 'Taxes Zone', placeholder: 'e.g., Dhaka-6', hint: 'Your assigned taxes zone (e.g., Dhaka-6). This is printed on your TIN certificate.' },
-    { key: 'employerName', label: 'Employer / Business Name', placeholder: 'Name and address', hint: 'Name and address of your employer or business. Leave blank if not applicable.' },
-    { key: 'spouseName', label: 'Spouse Name', placeholder: 'If applicable', hint: 'Enter your spouse\'s name if married. Leave blank if not applicable.' },
-    { key: 'spouseTin', label: 'Spouse TIN', placeholder: 'If spouse is a taxpayer', hint: 'Your spouse\'s 12-digit TIN, if they are also a taxpayer. This helps NBR cross-verify.' },
-  ];
-
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Personal Information
+          {t.calculator.personalInfo.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          IT-11GA Part 1 &mdash; These fields are optional for calculation but
-          will appear on your printed result for easy portal transfer.
+          {t.calculator.personalInfo.subtitle}
         </p>
       </div>
 
@@ -44,18 +36,17 @@ export default function PersonalInfoStep() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {textFields.map(({ key, label, placeholder, hint }) => (
+        {FIELD_KEYS.map((key) => (
           <div key={key}>
             <label className="block text-sm font-medium text-ink mb-1">
-              {label}
+              {t.calculator.personalInfo.fields[key].label}
             </label>
-            <p className="text-xs text-ink-muted mb-1">{hint}</p>
+            <p className="text-xs text-ink-muted mb-1">{t.calculator.personalInfo.fields[key].hint}</p>
             <input
               type="text"
               className="w-full px-4 py-2 border border-rule rounded-lg focus:outline-none focus:ring-2 focus:ring-cta/20 focus:border-cta"
               value={(pi[key] as string) || ''}
               onChange={(e) => updateField(key, e.target.value)}
-              placeholder={placeholder}
             />
           </div>
         ))}
@@ -73,14 +64,14 @@ export default function PersonalInfoStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

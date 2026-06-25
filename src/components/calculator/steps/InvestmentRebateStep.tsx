@@ -1,21 +1,23 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { InvestmentRebate } from '@/types/tax';
 import { formatBDT } from '@/lib/formatters';
 import { getInvestmentIncomePercentage } from '@/lib/tax-engine/constants';
 
-const FIELDS: { key: keyof InvestmentRebate; label: string; hint: string }[] = [
-  { key: 'lifeInsurance', label: 'Life Insurance Premium', hint: 'Annual premium paid for life insurance policy. The policy must be in your name or your spouse\'s.' },
-  { key: 'depositPensionScheme', label: 'Deposit Pension Scheme (DPS)', hint: 'Monthly deposits into a bank DPS account. Enter the total amount deposited during the year.' },
-  { key: 'providentFund', label: 'Provident Fund Contribution', hint: 'Your personal contribution to Provident Fund (GPF/CPF). Employer\'s contribution is not included here.' },
-  { key: 'savingsCertificates', label: 'Savings Certificates (Sanchayapatra)', hint: 'Amount invested in National Savings Certificates during the year.' },
-  { key: 'stockInvestment', label: 'Stock Market Investment', hint: 'Net investment in shares of listed companies through DSE/CSE during the year.' },
-  { key: 'donations', label: 'Donations', hint: 'Donations to government-approved charitable organizations, hospitals, or educational institutions.' },
-  { key: 'otherInvestments', label: 'Other Eligible Investments', hint: 'Treasury bonds, mutual funds, or any other investments qualifying for rebate under Section 78.' },
+const FIELD_KEYS: (keyof InvestmentRebate)[] = [
+  'lifeInsurance',
+  'depositPensionScheme',
+  'providentFund',
+  'savingsCertificates',
+  'stockInvestment',
+  'donations',
+  'otherInvestments',
 ];
 
 export default function InvestmentRebateStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const investment = formData.investment;
   const assessmentYear = formData.personalInfo.assessmentYear;
@@ -24,8 +26,8 @@ export default function InvestmentRebateStep() {
     updateFormData('investment', { [key]: value });
   };
 
-  const totalEligible = FIELDS.reduce(
-    (sum, { key }) => sum + (investment[key] || 0),
+  const totalEligible = FIELD_KEYS.reduce(
+    (sum, key) => sum + (investment[key] || 0),
     0
   );
 
@@ -36,21 +38,21 @@ export default function InvestmentRebateStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Investment & Tax Rebate
+          {t.calculator.investment.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          Schedule 24D (Section 78) &mdash; Qualifying investments that earn you a 15% tax rebate. The more you invest in eligible instruments, the lower your tax.
+          {t.calculator.investment.subtitle}
         </p>
       </div>
 
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {FIELDS.map(({ key, label, hint }) => (
+          {FIELD_KEYS.map((key) => (
             <div key={key}>
               <label className="block text-sm font-medium text-ink mb-1">
-                {label}
+                {t.calculator.investment.fields[key].label}
               </label>
-              <p className="text-xs text-ink-muted mb-1">{hint}</p>
+              <p className="text-xs text-ink-muted mb-1">{t.calculator.investment.fields[key].hint}</p>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                   ৳
@@ -71,7 +73,7 @@ export default function InvestmentRebateStep() {
 
         <div className="bg-primary-light border border-primary/20 rounded-lg p-4">
           <p className="text-sm text-ink">
-            <span className="font-medium">Total Eligible Investment:</span>{' '}
+            <span className="font-medium">{t.calculator.investment.totalInvestment}</span>{' '}
             <span className="text-primary font-bold text-lg">
               {formatBDT(totalEligible)}
             </span>
@@ -88,14 +90,14 @@ export default function InvestmentRebateStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>

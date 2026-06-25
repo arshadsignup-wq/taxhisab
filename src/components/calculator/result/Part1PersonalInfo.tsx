@@ -1,55 +1,52 @@
 'use client';
 
 import type { PersonalInfo } from '@/types/tax';
-import {
-  CATEGORY_LABELS,
-  LOCATION_LABELS,
-  ASSESSMENT_YEAR_LABELS,
-} from '@/lib/tax-engine/constants';
+import { useTranslation } from '@/i18n';
 
 interface Part1Props {
   personalInfo: PersonalInfo;
 }
 
 export default function Part1PersonalInfo({ personalInfo }: Part1Props) {
+  const t = useTranslation();
   const rows: { serial: string; label: string; value: string }[] = [
-    { serial: '1', label: 'Name of Taxpayer', value: personalInfo.name },
-    { serial: '2', label: 'National ID No.', value: personalInfo.nid },
-    { serial: '3', label: 'TIN', value: personalInfo.tin },
-    { serial: '4', label: 'Circle', value: personalInfo.circle },
-    { serial: '5', label: 'Taxes Zone', value: personalInfo.zone },
+    { serial: '1', label: t.result.personalInfoLabels['1'], value: personalInfo.name },
+    { serial: '2', label: t.result.personalInfoLabels['2'], value: personalInfo.nid },
+    { serial: '3', label: t.result.personalInfoLabels['3'], value: personalInfo.tin },
+    { serial: '4', label: t.result.personalInfoLabels['4'], value: personalInfo.circle },
+    { serial: '5', label: t.result.personalInfoLabels['5'], value: personalInfo.zone },
     {
       serial: '6',
-      label: 'Assessment Year',
-      value: ASSESSMENT_YEAR_LABELS[personalInfo.assessmentYear],
+      label: t.result.personalInfoLabels['6'],
+      value: t.labels.assessmentYears[personalInfo.assessmentYear],
     },
     {
       serial: '7',
-      label: 'Taxpayer Category',
-      value: CATEGORY_LABELS[personalInfo.category],
+      label: t.result.personalInfoLabels['7'],
+      value: t.labels.categories[personalInfo.category],
     },
     {
       serial: '8',
-      label: 'Location',
-      value: LOCATION_LABELS[personalInfo.location],
+      label: t.result.personalInfoLabels['8'],
+      value: t.labels.locations[personalInfo.location],
     },
     {
       serial: '9',
-      label: 'Employer / Business Name',
+      label: t.result.personalInfoLabels['9'],
       value: personalInfo.employerName,
     },
-    { serial: '10', label: 'Spouse Name', value: personalInfo.spouseName },
-    { serial: '11', label: 'Spouse TIN', value: personalInfo.spouseTin },
+    { serial: '10', label: t.result.personalInfoLabels['10'], value: personalInfo.spouseName },
+    { serial: '11', label: t.result.personalInfoLabels['11'], value: personalInfo.spouseTin },
   ];
 
   // Only show rows that have values, except always show AY, category, location
   const alwaysShow = ['6', '7', '8'];
 
   return (
-    <div className="bg-white rounded-xl border border-rule elevation-2 overflow-hidden">
+    <div className="pdf-section bg-white rounded-xl border border-rule elevation-2 overflow-hidden">
       <div className="bg-surface px-6 py-3 border-b border-rule">
         <h2 className="font-semibold text-ink">
-          Part 1: Personal Information
+          {t.result.part1Title}
         </h2>
       </div>
       <div className="p-6">

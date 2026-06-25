@@ -1,15 +1,17 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
+import { useTranslation } from '@/i18n';
 import type { OtherIncome } from '@/types/tax';
 
-const FIELDS: { key: keyof OtherIncome; label: string; hint: string }[] = [
-  { key: 'foreignRemittance', label: 'Foreign Remittance', hint: 'Income received from abroad (wage earner\'s remittance). Note: remittance through legal banking channels may be tax-exempt.' },
-  { key: 'royaltyIncome', label: 'Royalty Income', hint: 'Income from royalties, copyrights, patents, or intellectual property.' },
-  { key: 'otherSources', label: 'Other Sources', hint: 'Any other taxable income: lottery winnings, gifts above exemption limit, or income not classified elsewhere.' },
+const FIELD_KEYS: (keyof OtherIncome)[] = [
+  'foreignRemittance',
+  'royaltyIncome',
+  'otherSources',
 ];
 
 export default function OtherIncomeStep() {
+  const t = useTranslation();
   const { formData, updateFormData, nextStep, prevStep } = useCalculatorStore();
   const otherIncome = formData.otherIncome;
 
@@ -21,20 +23,20 @@ export default function OtherIncomeStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold text-ink mb-1">
-          Other Income
+          {t.calculator.otherIncome.title}
         </h2>
         <p className="text-sm text-ink-muted">
-          IT-11GA Serial 7 &mdash; Any income that doesn&apos;t fit into the other categories above. This includes foreign remittance, royalty, and other miscellaneous sources.
+          {t.calculator.otherIncome.subtitle}
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {FIELDS.map(({ key, label, hint }) => (
+        {FIELD_KEYS.map((key) => (
           <div key={key}>
             <label className="block text-sm font-medium text-ink mb-1">
-              {label}
+              {t.calculator.otherIncome.fields[key].label}
             </label>
-            <p className="text-xs text-ink-muted mb-1">{hint}</p>
+            <p className="text-xs text-ink-muted mb-1">{t.calculator.otherIncome.fields[key].hint}</p>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted">
                 ৳
@@ -59,14 +61,14 @@ export default function OtherIncomeStep() {
           onClick={prevStep}
           className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Previous
+          {t.common.previous}
         </button>
         <button
           type="button"
           onClick={nextStep}
           className="bg-cta hover:bg-cta-dark text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
-          Next
+          {t.common.next}
         </button>
       </div>
     </div>
