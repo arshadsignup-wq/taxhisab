@@ -1,4 +1,5 @@
-// Taxpayer categories with different tax-free thresholds
+// ─── Core Enums ─────────────────────────────────────────────────
+
 export type TaxpayerCategory =
   | 'male'
   | 'female'
@@ -16,82 +17,137 @@ export type CapitalAssetType = 'property' | 'shares' | 'other';
 
 export type AgriculturalExpenseMethod = 'flat_rate' | 'actual';
 
-// ─── Personal Info ───────────────────────────────────────────────
+// ─── Profile (income-type selection) ────────────────────────────
+
+export type IncomeSection =
+  | 'salary'
+  | 'house-property'
+  | 'agricultural'
+  | 'business'
+  | 'capital-gains'
+  | 'financial-assets'
+  | 'other-income'
+  | 'tax-exempted'
+  | 'investment'
+  | 'assets-liabilities';
+
+export interface TaxProfile {
+  enabledSections: Record<IncomeSection, boolean>;
+}
+
+// ─── Personal Info (IT-11GA Part 1) ─────────────────────────────
+
 export interface PersonalInfo {
   category: TaxpayerCategory;
   location: LocationType;
   assessmentYear: AssessmentYear;
+  name: string;
+  tin: string;
+  nid: string;
+  circle: string;
+  zone: string;
+  spouseName: string;
+  spouseTin: string;
+  employerName: string;
 }
 
-// ─── Salary Income ───────────────────────────────────────────────
+// ─── Salary Income (Schedule 24A) ───────────────────────────────
+
 export interface SalaryIncome {
-  enabled: boolean;
   basicSalary: number;
+  specialPay: number;
   houseRentAllowance: number;
   medicalAllowance: number;
   conveyanceAllowance: number;
   festivalBonus: number;
   otherAllowances: number;
   employerProvidentFund: number;
+  employeeShareScheme: number;
+  otherEmploymentIncome: number;
   perquisites: number;
 }
 
-// ─── Business Income ─────────────────────────────────────────────
+// ─── Business Income (Schedule 24C) ─────────────────────────────
+
 export interface BusinessIncome {
-  enabled: boolean;
   isFreelancer: boolean;
   grossReceipts: number;
   expenses: number;
   netProfit: number;
 }
 
-// ─── House Property Income ───────────────────────────────────────
+// ─── House Property Income (Schedule 24B) ───────────────────────
+
 export interface HouseProperty {
+  description: string;
   type: PropertyType;
   annualRent: number;
   municipalTax: number;
-  repairDeduction: number; // auto-calculated as 30% of annual value
+  repairDeduction: number;
+  insurancePremium: number;
+  vacancyAllowance: number;
   loanInterest: number;
 }
 
 export interface HousePropertyIncome {
-  enabled: boolean;
   properties: HouseProperty[];
 }
 
-// ─── Capital Gains ───────────────────────────────────────────────
+// ─── Capital Gains ──────────────────────────────────────────────
+
 export interface CapitalGain {
+  description: string;
   assetType: CapitalAssetType;
+  dateOfTransfer: string;
   salePrice: number;
   costOfAcquisition: number;
+  costOfImprovement: number;
   gain: number;
 }
 
 export interface CapitalGainsIncome {
-  enabled: boolean;
   gains: CapitalGain[];
 }
 
-// ─── Agricultural Income ─────────────────────────────────────────
+// ─── Agricultural Income ────────────────────────────────────────
+
 export interface AgriculturalIncome {
-  enabled: boolean;
   grossIncome: number;
   expenseMethod: AgriculturalExpenseMethod;
   actualExpenses: number;
 }
 
-// ─── Other Income ────────────────────────────────────────────────
-export interface OtherIncome {
-  enabled: boolean;
+// ─── Financial Assets Income (IT-11GA Serial 6) ─────────────────
+
+export interface FinancialAssetsIncome {
   bankInterest: number;
-  dividends: number;
-  remittance: number;
+  savingsCertificateInterest: number;
+  securitiesInterest: number;
+  listedDividends: number;
+  unlistedDividends: number;
+  otherFinancialIncome: number;
+}
+
+// ─── Other Income (IT-11GA Serial 7) ────────────────────────────
+
+export interface OtherIncome {
+  foreignRemittance: number;
+  royaltyIncome: number;
   otherSources: number;
 }
 
-// ─── Investment & Rebate ─────────────────────────────────────────
+// ─── Tax-Exempted Income ────────────────────────────────────────
+
+export interface TaxExemptedIncome {
+  exemptedAgriculturalIncome: number;
+  exemptedDividends: number;
+  exemptedInterest: number;
+  exemptedOther: number;
+}
+
+// ─── Investment & Rebate (Schedule 24D, Section 78) ─────────────
+
 export interface InvestmentRebate {
-  enabled: boolean;
   lifeInsurance: number;
   depositPensionScheme: number;
   providentFund: number;
@@ -101,34 +157,75 @@ export interface InvestmentRebate {
   otherInvestments: number;
 }
 
-// ─── Tax Deducted / Advance Tax ──────────────────────────────────
-export interface TaxPaid {
-  tdsOnSalary: number;
-  tdsOnOther: number;
-  advanceTax: number;
+// ─── Tax Payments (IT-11GA Part C) ──────────────────────────────
+
+export interface TdsEntry {
+  source: string;
+  amount: number;
 }
 
-// ─── Complete Calculator State ───────────────────────────────────
+export interface AdvanceTaxEntry {
+  date: string;
+  amount: number;
+}
+
+export interface TaxPayments {
+  tdsEntries: TdsEntry[];
+  advanceTaxEntries: AdvanceTaxEntry[];
+  taxRefundAdjustment: number;
+  taxPaidWithReturn: number;
+}
+
+// ─── Assets & Liabilities (IT-10B) ─────────────────────────────
+
+export interface AssetsLiabilities {
+  businessCapital: number;
+  directorsShares: number;
+  nonAgriculturalProperty: number;
+  agriculturalProperty: number;
+  investmentsAssets: number;
+  motorVehicles: number;
+  motorVehicleCount: number;
+  jewellery: number;
+  furnitureElectronics: number;
+  cashAndBankBalance: number;
+  assetsOutsideBangladesh: number;
+  otherAssets: number;
+  mortgageLoans: number;
+  unsecuredLoans: number;
+  bankLoans: number;
+  otherLiabilities: number;
+  familyExpenses: number;
+}
+
+// ─── Complete Calculator State ──────────────────────────────────
+
 export interface CalculatorFormData {
+  profile: TaxProfile;
   personalInfo: PersonalInfo;
   salary: SalaryIncome;
   business: BusinessIncome;
   houseProperty: HousePropertyIncome;
   capitalGains: CapitalGainsIncome;
   agricultural: AgriculturalIncome;
+  financialAssets: FinancialAssetsIncome;
   otherIncome: OtherIncome;
+  taxExempted: TaxExemptedIncome;
   investment: InvestmentRebate;
-  taxPaid: TaxPaid;
+  taxPayments: TaxPayments;
+  assetsLiabilities: AssetsLiabilities;
 }
 
-// ─── Tax Slab ────────────────────────────────────────────────────
+// ─── Tax Slab ──────────────────────────────────────────────────
+
 export interface TaxSlab {
   lowerLimit: number;
-  upperLimit: number | null; // null = no upper limit
-  rate: number; // as decimal, e.g. 0.05 for 5%
+  upperLimit: number | null;
+  rate: number;
 }
 
-// ─── Slab Breakdown (for result display) ─────────────────────────
+// ─── Slab Breakdown (for result display) ────────────────────────
+
 export interface SlabBreakdown {
   slabRange: string;
   rate: number;
@@ -136,17 +233,20 @@ export interface SlabBreakdown {
   tax: number;
 }
 
-// ─── Income Head Breakdown ───────────────────────────────────────
+// ─── Income Head Breakdown ─────────────────────────────────────
+
 export interface IncomeHeadBreakdown {
   salary: number;
   business: number;
   houseProperty: number;
   capitalGains: number;
   agricultural: number;
+  financialAssets: number;
   otherIncome: number;
 }
 
-// ─── Surcharge Details ───────────────────────────────────────────
+// ─── Surcharge Details ─────────────────────────────────────────
+
 export interface SurchargeDetails {
   netWealth: number;
   surchargeRate: number;
@@ -154,13 +254,46 @@ export interface SurchargeDetails {
   environmentalSurcharge: number;
 }
 
-// ─── Complete Tax Calculation Result ─────────────────────────────
+// ─── Salary Breakdown (for Schedule 24A display) ────────────────
+
+export interface SalaryBreakdownItem {
+  label: string;
+  gross: number;
+  exempt: number;
+  taxable: number;
+}
+
+export interface SalaryBreakdownResult {
+  items: SalaryBreakdownItem[];
+  totalGross: number;
+  totalExempt: number;
+  totalTaxable: number;
+}
+
+// ─── House Property Breakdown ───────────────────────────────────
+
+export interface HousePropertyBreakdownItem {
+  description: string;
+  type: PropertyType;
+  annualValue: number;
+  deductions: number;
+  netIncome: number;
+}
+
+// ─── Complete Tax Calculation Result ────────────────────────────
+
 export interface TaxCalculationResult {
   // Income breakdown
   incomeBreakdown: IncomeHeadBreakdown;
   totalIncome: number;
+  taxExemptedTotal: number;
+  grossTotalIncome: number;
   taxFreeThreshold: number;
   taxableIncome: number;
+
+  // Schedule breakdowns
+  salaryBreakdown: SalaryBreakdownResult | null;
+  housePropertyBreakdown: HousePropertyBreakdownItem[];
 
   // Slab-wise tax
   slabBreakdown: SlabBreakdown[];
@@ -184,41 +317,52 @@ export interface TaxCalculationResult {
   // Final
   totalTaxLiability: number;
   taxAlreadyPaid: number;
-  netTaxPayable: number; // positive = pay, negative = refund
+  netTaxPayable: number;
+
+  // IT-10B summary
+  totalAssets: number;
+  totalLiabilities: number;
+  netWealth: number;
 }
 
-// ─── Wizard State ────────────────────────────────────────────────
-export type WizardStep =
+// ─── Wizard State ──────────────────────────────────────────────
+
+export type WizardStepId =
+  | 'profile'
   | 'personal-info'
   | 'salary'
-  | 'business'
   | 'house-property'
-  | 'capital-gains'
   | 'agricultural'
+  | 'business'
+  | 'capital-gains'
+  | 'financial-assets'
   | 'other-income'
+  | 'tax-exempted'
   | 'investment'
+  | 'tax-payments'
+  | 'assets-liabilities'
   | 'review';
 
-export const WIZARD_STEPS: WizardStep[] = [
-  'personal-info',
-  'salary',
-  'business',
-  'house-property',
-  'capital-gains',
-  'agricultural',
-  'other-income',
-  'investment',
-  'review',
-];
+export interface WizardStep {
+  id: WizardStepId;
+  label: string;
+  shortLabel: string;
+}
 
-export const WIZARD_STEP_LABELS: Record<WizardStep, string> = {
-  'personal-info': 'Personal Info',
-  salary: 'Salary Income',
-  business: 'Business Income',
-  'house-property': 'House Property',
-  'capital-gains': 'Capital Gains',
-  agricultural: 'Agricultural',
-  'other-income': 'Other Income',
-  investment: 'Investment & Rebate',
-  review: 'Review & Calculate',
-};
+// Static full list -- used by getActiveSteps() to filter
+export const ALL_WIZARD_STEPS: WizardStep[] = [
+  { id: 'profile', label: 'Income Profile', shortLabel: 'Profile' },
+  { id: 'personal-info', label: 'Personal Information', shortLabel: 'Personal' },
+  { id: 'salary', label: 'Salary Income', shortLabel: 'Salary' },
+  { id: 'house-property', label: 'House Property', shortLabel: 'Property' },
+  { id: 'agricultural', label: 'Agricultural Income', shortLabel: 'Agricultural' },
+  { id: 'business', label: 'Business Income', shortLabel: 'Business' },
+  { id: 'capital-gains', label: 'Capital Gains', shortLabel: 'Capital' },
+  { id: 'financial-assets', label: 'Financial Assets', shortLabel: 'Financial' },
+  { id: 'other-income', label: 'Other Income', shortLabel: 'Other' },
+  { id: 'tax-exempted', label: 'Tax-Exempted Income', shortLabel: 'Exempted' },
+  { id: 'investment', label: 'Investment & Rebate', shortLabel: 'Investment' },
+  { id: 'tax-payments', label: 'Tax Payments', shortLabel: 'Tax Paid' },
+  { id: 'assets-liabilities', label: 'Assets & Liabilities', shortLabel: 'IT-10B' },
+  { id: 'review', label: 'Review & Calculate', shortLabel: 'Review' },
+];

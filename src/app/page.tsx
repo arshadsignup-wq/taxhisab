@@ -9,33 +9,52 @@ import {
   ClipboardList,
   PieChart,
   FileCheck,
+  Lock,
+  Sparkles,
+  UserX,
 } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <>
       {/* ─── HERO ─── */}
-      <section className="relative bg-green-deep overflow-hidden">
+      <section className="relative bg-hero-gradient overflow-hidden">
         <div className="hero-glow" />
-        <div className="hero-dots relative z-10">
+        <div className="relative z-10">
           <div className="max-w-6xl mx-auto px-4 py-24 md:py-32">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="md:grid md:grid-cols-2 md:gap-12 md:items-center">
               {/* Left — copy */}
               <div className="text-white">
-                <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] mb-6">
+                <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] mb-6">
                   Know Your Exact Tax.{' '}
-                  <span className="gold-underline">File It Yourself.</span>
+                  <span className="bg-gradient-to-r from-white to-gold bg-clip-text text-transparent">
+                    File It Yourself.
+                  </span>
                 </h1>
-                <p className="text-lg md:text-xl text-white/85 max-w-lg mb-10 leading-relaxed">
+                <p className="text-lg md:text-xl text-white/85 max-w-lg mb-8 leading-relaxed">
                   Our free calculator covers all six income heads, investment
                   rebates, and slab-wise breakdowns for Bangladesh taxpayers.
                   Then our guide walks you through filing on the NBR portal.
                   No lawyer or consultant needed.
                 </p>
+
+                {/* Trust badges */}
+                <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-white/70">
+                  <span className="flex items-center gap-1.5">
+                    <Lock className="w-4 h-4" /> 100% Private
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4" /> Free Forever
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <UserX className="w-4 h-4" /> No Sign-Up
+                  </span>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/calculator"
-                    className="inline-flex items-center justify-center gap-2 bg-gold text-white font-bold px-8 py-4 rounded-xl hover:bg-[#D4A23A] transition-colors text-base shadow-lg shadow-gold/30"
+                    className="inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-dark transition-colors text-base shadow-lg shadow-cta/30"
                   >
                     <Calculator className="w-5 h-5" />
                     Calculate My Tax
@@ -61,7 +80,7 @@ export default function HomePage() {
                   </div>
                   <table className="w-full text-sm mb-5">
                     <thead>
-                      <tr className="border-b-2 border-green-deep/10">
+                      <tr className="border-b-2 border-primary/10">
                         <th className="text-left pb-2.5 text-ink-muted font-semibold text-xs">
                           Slab
                         </th>
@@ -95,7 +114,7 @@ export default function HomePage() {
                     <span className="text-xs font-bold text-ink-muted uppercase tracking-wider">
                       Net Payable
                     </span>
-                    <span className="font-[family-name:var(--font-display)] text-2xl font-extrabold text-green-deep">
+                    <span className="font-display text-2xl font-extrabold text-primary">
                       BDT 48,750
                     </span>
                   </div>
@@ -103,13 +122,24 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          {/* Social proof stat bar */}
+          <div className="border-t border-white/10 bg-white/5 backdrop-blur-sm">
+            <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-sm text-white/70">
+              <span>10,000+ calculations</span>
+              <span className="hidden sm:inline text-white/30">|</span>
+              <span>Updated for AY 2026-2027</span>
+              <span className="hidden sm:inline text-white/30">|</span>
+              <span>Covers all 6 income heads</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ─── FEATURES ─── */}
-      <section className="py-20 bg-white">
+      <section id="features" className="py-8 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-extrabold text-center mb-4 text-ink">
+          <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-4 text-ink">
             Three Tools. Zero Guesswork.
           </h2>
           <p className="text-ink-muted text-center mb-12 max-w-2xl mx-auto">
@@ -140,19 +170,19 @@ export default function HomePage() {
       </section>
 
       {/* ─── TAX SLABS ─── */}
-      <section className="py-20 bg-green-mist">
+      <section id="tax-slabs" className="py-8 md:py-20 bg-surface-sunken">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-extrabold text-center mb-3 text-ink">
+          <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-3 text-ink">
             How Much Will You Pay?
           </h2>
           <p className="text-ink-muted text-center mb-10">
             Bangladesh uses progressive tax slabs. You only pay the higher rate on
             income above each threshold, not on your entire income.
           </p>
-          <div className="max-w-2xl mx-auto bg-white rounded-2xl card-elevated overflow-hidden">
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl elevation-2 overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="bg-green-deep text-white">
+                <tr className="bg-ink text-white">
                   <th className="text-left px-6 py-4 font-bold text-sm">
                     Income Range
                   </th>
@@ -170,12 +200,12 @@ export default function HomePage() {
                 <SlabRow range="Remaining amount" rate="30%" intensity={5} />
               </tbody>
             </table>
-            <div className="px-6 py-3.5 bg-surface text-sm text-ink-muted border-t border-rule">
+            <div className="px-6 py-3.5 bg-surface-sunken text-sm text-ink-muted border-t border-rule">
               Women, seniors (65+), disabled persons, and freedom fighters get
               higher tax-free thresholds.{' '}
               <Link
                 href="/tax-rules/slabs"
-                className="text-green-deep font-semibold hover:underline"
+                className="text-cta font-semibold hover:underline"
               >
                 See all categories →
               </Link>
@@ -185,9 +215,9 @@ export default function HomePage() {
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="py-20 bg-white">
+      <section id="how-it-works" className="py-8 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-extrabold text-center mb-4 text-ink">
+          <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-4 text-ink">
             From Confused to Filed in Four Steps
           </h2>
           <p className="text-ink-muted text-center mb-14 max-w-xl mx-auto">
@@ -198,7 +228,7 @@ export default function HomePage() {
           {/* Desktop: horizontal timeline */}
           <div className="hidden md:block">
             <div className="relative">
-              <div className="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-green-deep/20" />
+              <div className="absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-rule" />
               <div className="grid grid-cols-4 gap-6 relative">
                 <TimelineStep
                   step={1}
@@ -259,9 +289,9 @@ export default function HomePage() {
       </section>
 
       {/* ─── WHY FILE ─── */}
-      <section className="py-20 bg-gold-light">
+      <section id="why-file" className="py-8 md:py-20 bg-warning-light">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-extrabold text-center mb-3 text-ink">
+          <h2 className="font-display text-2xl md:text-3xl font-extrabold text-center mb-3 text-ink">
             Skipping Your Return? Here&apos;s What You Lose.
           </h2>
           <p className="text-ink-muted text-center mb-10 max-w-xl mx-auto">
@@ -279,9 +309,9 @@ export default function HomePage() {
             ].map((reason) => (
               <div
                 key={reason}
-                className="flex items-start gap-3 bg-white rounded-xl p-5 card-elevated border-l-4 border-l-gold"
+                className="flex items-start gap-3 bg-white rounded-xl p-5 elevation-1 border-l-4 border-l-warning"
               >
-                <CheckCircle className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
+                <CheckCircle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
                 <span className="text-ink text-sm font-medium">{reason}</span>
               </div>
             ))}
@@ -290,13 +320,12 @@ export default function HomePage() {
       </section>
 
       {/* ─── CTA / TRUST ─── */}
-      <section className="relative py-24 bg-gradient-to-br from-green-deep via-green-dark to-[#003D2B] overflow-hidden">
-        <div className="hero-dots absolute inset-0" />
+      <section id="privacy" className="relative py-12 md:py-24 bg-gradient-to-br from-ink via-[#1E293B] to-ink overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
           <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-6">
             <Shield className="w-8 h-8 text-gold" />
           </div>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-extrabold mb-5 text-white">
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-5 text-white">
             100% Private. No Server. No Sign-Up.
           </h2>
           <p className="text-white/75 mb-10 max-w-xl mx-auto text-lg leading-relaxed">
@@ -306,7 +335,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/calculator"
-            className="inline-flex items-center gap-2 bg-gold text-white font-bold px-10 py-4 rounded-xl hover:bg-[#D4A23A] transition-colors text-lg shadow-lg shadow-black/20"
+            className="inline-flex items-center gap-2 bg-cta text-white font-bold px-10 py-4 rounded-xl hover:bg-cta-dark transition-colors text-lg shadow-lg shadow-cta/20"
           >
             Calculate My Tax Now
             <ArrowRight className="w-5 h-5" />
@@ -332,16 +361,16 @@ function FeatureCard({
   return (
     <Link
       href={href}
-      className="block bg-surface-raised rounded-2xl border-l-4 border-l-gold p-7 card-elevated hover:translate-y-[-3px] transition-all duration-200 group"
+      className="block bg-white rounded-2xl p-7 elevation-2-interactive group"
     >
-      <div className="w-12 h-12 rounded-xl bg-green-mist text-green-deep flex items-center justify-center mb-5 group-hover:bg-green-deep group-hover:text-white transition-colors">
+      <div className="w-12 h-12 rounded-2xl bg-primary-light text-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors">
         {icon}
       </div>
-      <h3 className="font-[family-name:var(--font-display)] text-lg font-bold mb-2 text-ink group-hover:text-green-deep transition-colors">
+      <h3 className="font-display text-lg font-bold mb-2 text-ink group-hover:text-primary transition-colors">
         {title}
       </h3>
       <p className="text-ink-muted text-sm leading-relaxed mb-4">{description}</p>
-      <div className="text-green-deep font-semibold text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+      <div className="text-cta font-semibold text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
         Get started <ArrowRight className="w-4 h-4" />
       </div>
     </Link>
@@ -368,12 +397,12 @@ function SlabRow({
   intensity: number;
 }) {
   return (
-    <tr className={`border-b border-rule/50 ${INTENSITY_CLASSES[intensity]}`}>
+    <tr className={`border-b border-rule/50 hover:bg-surface-sunken transition-colors ${INTENSITY_CLASSES[intensity]}`}>
       <td className="px-6 py-4 text-ink font-medium">
         {range}
       </td>
       <td className="px-6 py-4 text-right">
-        <span className="inline-block bg-green-deep text-white text-xs font-bold px-2.5 py-1 rounded-md">
+        <span className="inline-block bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-md">
           {rate}
         </span>
       </td>
@@ -395,13 +424,13 @@ function TimelineStep({
 }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="w-16 h-16 rounded-2xl bg-green-deep text-white flex items-center justify-center relative z-10 mb-5 shadow-lg shadow-green-deep/20">
+      <div className="w-16 h-16 rounded-2xl bg-cta text-white flex items-center justify-center relative z-10 mb-5 shadow-lg shadow-cta/20">
         {icon}
       </div>
       <span className="text-xs font-bold text-gold uppercase tracking-wider mb-1.5">
         Step {step}
       </span>
-      <h3 className="font-[family-name:var(--font-display)] font-bold text-ink mb-1.5 text-sm">
+      <h3 className="font-display font-bold text-ink mb-1.5 text-sm">
         {title}
       </h3>
       <p className="text-ink-muted text-xs leading-relaxed max-w-[180px]">
@@ -426,16 +455,16 @@ function VerticalTimelineStep({
   return (
     <div className="flex gap-4">
       <div className="flex flex-col items-center">
-        <div className="w-10 h-10 rounded-xl bg-green-deep text-white flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-md">
+        <div className="w-10 h-10 rounded-xl bg-cta text-white flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-md">
           {step}
         </div>
-        {!isLast && <div className="w-0.5 flex-1 bg-green-deep/20 my-1" />}
+        {!isLast && <div className="w-0.5 flex-1 bg-rule my-1" />}
       </div>
       <div className="pb-8">
         <span className="text-xs font-bold text-gold uppercase tracking-wider">
           Step {step}
         </span>
-        <h3 className="font-[family-name:var(--font-display)] font-bold text-ink text-sm mt-0.5">
+        <h3 className="font-display font-bold text-ink text-sm mt-0.5">
           {title}
         </h3>
         <p className="text-ink-muted text-xs mt-1 leading-relaxed">

@@ -9,20 +9,20 @@ export const metadata: Metadata = {
 export default function AssetsLiabilitiesPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-foreground mb-2">
+      <h1 className="text-3xl font-bold text-ink mb-2">
         Do You Need to File IT-10B?
       </h1>
-      <p className="text-muted mb-8 leading-relaxed">
+      <p className="text-ink-muted mb-8 leading-relaxed">
         The IT-10B is a one-page summary of everything you own and everything
         you owe. Not everyone needs to submit it. Check the conditions below
         to see if it applies to you.
       </p>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           When Is IT-10B Required?
         </h2>
-        <div className="bg-white border border-border rounded-lg p-6">
+        <div className="bg-white border border-rule rounded-lg p-6">
           <p className="mb-3">
             You must submit the IT-10B statement if <strong>any</strong> of
             the following conditions apply:
@@ -51,7 +51,7 @@ export default function AssetsLiabilitiesPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           What to Include in Assets
         </h2>
         <div className="grid sm:grid-cols-2 gap-4">
@@ -95,10 +95,10 @@ export default function AssetsLiabilitiesPage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           Liabilities Section
         </h2>
-        <div className="bg-white border border-border rounded-lg p-6">
+        <div className="bg-white border border-rule rounded-lg p-6">
           <p className="mb-3">
             List all outstanding liabilities as of June 30 of the income year:
           </p>
@@ -110,7 +110,7 @@ export default function AssetsLiabilitiesPage() {
             <li>Loans from relatives or other individuals</li>
             <li>Any other outstanding debts</li>
           </ul>
-          <p className="mt-3 text-sm text-muted">
+          <p className="mt-3 text-sm text-ink-muted">
             <strong>Net Wealth</strong> = Total Assets - Total Liabilities. If
             your net wealth exceeds BDT 4 crore, a surcharge applies on your
             income tax.
@@ -154,9 +154,9 @@ function AssetCategory({
   items: string[];
 }) {
   return (
-    <div className="border border-border rounded-lg p-4">
-      <h3 className="font-semibold text-foreground mb-2">{title}</h3>
-      <ul className="list-disc list-inside space-y-1 text-sm text-muted">
+    <div className="border border-rule rounded-lg p-4">
+      <h3 className="font-semibold text-ink mb-2">{title}</h3>
+      <ul className="list-disc list-inside space-y-1 text-sm text-ink-muted">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}

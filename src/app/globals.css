@@ -1,34 +1,53 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Core palette */
-  --color-green-deep: #006A4E;
-  --color-green-dark: #004D38;
-  --color-green-mist: #D6EDE5;
-  --color-gold: #C8962E;
-  --color-gold-light: #F5ECD6;
-  --color-surface: #F0F2F5;
+  /* Core palette — brightened greens */
+  --color-green-deep: #00805E;
+  --color-green-dark: #005C43;
+  --color-green-mist: #E6F5F0;
+  --color-green-50: #F0FAF6;
+  --color-gold: #D4940A;
+  --color-gold-light: #FDF6E3;
+  --color-gold-dark: #B37A08;
+  --color-surface: #F8FAFB;
   --color-surface-raised: #FFFFFF;
+  --color-surface-sunken: #F1F5F9;
 
-  /* Semantic aliases (backward compat) */
-  --color-primary: #006A4E;
-  --color-primary-dark: #004D38;
-  --color-primary-light: #D6EDE5;
-  --color-accent: #C8962E;
-  --color-background: #F0F2F5;
-  --color-foreground: #0C1B2A;
-  --color-muted: #526170;
-  --color-border: #DDE3EA;
+  /* Semantic aliases */
+  --color-primary: #00805E;
+  --color-primary-dark: #005C43;
+  --color-primary-light: #E6F5F0;
+  --color-accent: #D4940A;
+  --color-background: #F8FAFB;
+  --color-foreground: #0F172A;
+  --color-muted: #64748B;
+  --color-border: #E2E8F0;
   --color-card: #FFFFFF;
-  --color-card-hover: #F0F2F5;
+  --color-card-hover: #F8FAFB;
+
+  /* CTA blue (TurboTax pattern) */
+  --color-cta: #2563EB;
+  --color-cta-dark: #1D4ED8;
+  --color-cta-light: #EFF6FF;
 
   /* Neutrals */
-  --color-ink: #0C1B2A;
-  --color-ink-muted: #526170;
-  --color-rule: #DDE3EA;
+  --color-ink: #0F172A;
+  --color-ink-muted: #64748B;
+  --color-ink-subtle: #94A3B8;
+  --color-rule: #E2E8F0;
+
+  /* Feedback tokens */
+  --color-success: #059669;
+  --color-success-light: #ECFDF5;
+  --color-warning: #D97706;
+  --color-warning-light: #FFFBEB;
+  --color-error: #DC2626;
+  --color-error-light: #FEF2F2;
+  --color-info: #2563EB;
+  --color-info-light: #EFF6FF;
 
   /* Fonts */
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-plus-jakarta);
 }
@@ -44,19 +63,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Global smooth transitions on interactive elements */
+a, button, input, select, textarea {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: var(--color-surface-sunken);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-rule);
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ink-muted);
+  background: var(--color-ink-subtle);
 }
 
 /* Currency input - hide number spinners */
@@ -69,13 +95,18 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-/* ─── Hero dot pattern ─── */
-.hero-dots {
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.15) 1.5px,
-    transparent 1.5px
-  );
-  background-size: 20px 20px;
+/* ─── Focus ring utility ─── */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-cta);
+  outline-offset: 2px;
+}
+.focus-ring:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Hero gradient background ─── */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #00805E 0%, #005C43 40%, #003D2B 100%);
 }
 
 /* ─── Decorative mesh gradient for hero ─── */
@@ -83,21 +114,72 @@ input[type='number'] {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(200, 150, 46, 0.15), transparent),
-    radial-gradient(ellipse 50% 60% at 20% 80%, rgba(0, 77, 56, 0.4), transparent);
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(37, 99, 235, 0.12), transparent),
+    radial-gradient(ellipse 50% 60% at 20% 80%, rgba(0, 92, 67, 0.4), transparent);
   pointer-events: none;
 }
 
-/* ─── Card elevation ─── */
+/* ─── Elevation system ─── */
+.elevation-1 {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 1px 3px rgba(15, 23, 42, 0.04);
+}
+.elevation-2 {
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 6px 16px rgba(15, 23, 42, 0.06);
+}
+.elevation-3 {
+  box-shadow:
+    0 4px 8px rgba(15, 23, 42, 0.1),
+    0 12px 28px rgba(15, 23, 42, 0.08);
+}
+.elevation-4 {
+  box-shadow:
+    0 8px 16px rgba(15, 23, 42, 0.12),
+    0 20px 40px rgba(15, 23, 42, 0.1);
+}
+.elevation-2-interactive {
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 6px 16px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.elevation-2-interactive:hover {
+  box-shadow:
+    0 4px 8px rgba(15, 23, 42, 0.1),
+    0 12px 28px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+.elevation-1-interactive {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.elevation-1-interactive:hover {
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 6px 16px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Backward compat alias */
 .card-elevated {
   box-shadow:
-    0 1px 3px rgba(12, 27, 42, 0.08),
-    0 6px 16px rgba(12, 27, 42, 0.06);
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 6px 16px rgba(15, 23, 42, 0.06);
 }
 .card-elevated:hover {
   box-shadow:
-    0 4px 8px rgba(12, 27, 42, 0.1),
-    0 12px 28px rgba(12, 27, 42, 0.08);
+    0 4px 8px rgba(15, 23, 42, 0.1),
+    0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+/* ─── Display font utility ─── */
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
 }
 
 /* ─── Gold accent underline ─── */
@@ -113,31 +195,42 @@ input[type='number'] {
   bottom: 4px;
   height: 6px;
   background: var(--color-gold);
-  opacity: 0.5;
+  opacity: 0.7;
   border-radius: 3px;
 }
 
-/* ─── Preview card tilt ─── */
+/* ─── Preview card ─── */
 .preview-card {
-  transform: rotate(-3deg);
   box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.2),
-    0 2px 8px rgba(0, 0, 0, 0.1);
+    0 8px 16px rgba(15, 23, 42, 0.12),
+    0 20px 40px rgba(15, 23, 42, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .preview-card:hover {
-  transform: rotate(-1.5deg) translateY(-4px);
+  transform: translateY(-4px);
   box-shadow:
-    0 16px 50px rgba(0, 0, 0, 0.25),
-    0 4px 12px rgba(0, 0, 0, 0.12);
+    0 12px 24px rgba(15, 23, 42, 0.14),
+    0 28px 50px rgba(15, 23, 42, 0.12);
 }
 
 /* ─── Intensity bar colors for slab table ─── */
-.slab-intensity-1 { background: rgba(0, 106, 78, 0.08); }
-.slab-intensity-2 { background: rgba(0, 106, 78, 0.14); }
-.slab-intensity-3 { background: rgba(0, 106, 78, 0.22); }
-.slab-intensity-4 { background: rgba(0, 106, 78, 0.32); }
-.slab-intensity-5 { background: rgba(0, 106, 78, 0.44); }
+.slab-intensity-1 { background: rgba(0, 128, 94, 0.06); }
+.slab-intensity-2 { background: rgba(0, 128, 94, 0.12); }
+.slab-intensity-3 { background: rgba(0, 128, 94, 0.18); }
+.slab-intensity-4 { background: rgba(0, 128, 94, 0.26); }
+.slab-intensity-5 { background: rgba(0, 128, 94, 0.36); }
+
+/* ─── Skeleton shimmer ─── */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-surface-sunken) 25%, var(--color-rule) 50%, var(--color-surface-sunken) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
 /* Print styles */
 @media print {

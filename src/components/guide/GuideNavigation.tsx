@@ -17,7 +17,7 @@ export default function GuideNavigation({
   nextLabel,
 }: GuideNavigationProps) {
   return (
-    <div className="flex justify-between items-center mt-10 pt-6 border-t border-border">
+    <div className="flex justify-between items-center mt-10 pt-6 border-t border-rule">
       {prevHref ? (
         <Link
           href={prevHref}
@@ -25,7 +25,7 @@ export default function GuideNavigation({
         >
           <ChevronLeft className="w-4 h-4" />
           <div>
-            <div className="text-xs text-muted">Previous</div>
+            <div className="text-xs text-ink-muted">Previous</div>
             <div className="font-medium">{prevLabel}</div>
           </div>
         </Link>
@@ -38,7 +38,7 @@ export default function GuideNavigation({
           className="flex items-center gap-2 text-primary hover:text-primary-dark transition-colors text-right"
         >
           <div>
-            <div className="text-xs text-muted">Next</div>
+            <div className="text-xs text-ink-muted">Next</div>
             <div className="font-medium">{nextLabel}</div>
           </div>
           <ChevronRight className="w-4 h-4" />

@@ -9,25 +9,30 @@ import {
   LOCATION_LABELS,
   ASSESSMENT_YEAR_LABELS,
 } from '@/lib/tax-engine/constants';
-import { WIZARD_STEPS, WizardStep } from '@/types/tax';
+import type { WizardStepId } from '@/types/tax';
 
 export default function ReviewStep() {
   const router = useRouter();
-  const { formData, updateFormData, prevStep, goToStep, setResult } =
-    useCalculatorStore();
+  const { formData, prevStep, goToStep, setResult } = useCalculatorStore();
   const {
+    profile,
     personalInfo,
     salary,
     business,
     houseProperty,
     capitalGains,
     agricultural,
+    financialAssets,
     otherIncome,
+    taxExempted,
     investment,
-    taxPaid,
+    taxPayments,
+    assetsLiabilities,
   } = formData;
 
-  const navigateToStep = (step: WizardStep) => {
+  const es = profile.enabledSections;
+
+  const navigateToStep = (step: WizardStepId) => {
     goToStep(step);
   };
 
@@ -37,38 +42,56 @@ export default function ReviewStep() {
     router.push('/calculator/result');
   };
 
-  // Helper to compute totals for display
-  const salaryTotal = salary.enabled
+  // Quick totals for display
+  const salaryTotal = es.salary
     ? salary.basicSalary +
+      salary.specialPay +
       salary.houseRentAllowance +
       salary.medicalAllowance +
       salary.conveyanceAllowance +
       salary.festivalBonus +
       salary.otherAllowances +
       salary.employerProvidentFund +
+      salary.employeeShareScheme +
+      salary.otherEmploymentIncome +
       salary.perquisites
     : 0;
 
-  const businessTotal = business.enabled ? business.netProfit : 0;
+  const businessTotal = es.business ? business.netProfit : 0;
 
-  const housePropertyTotal = houseProperty.enabled
+  const housePropertyTotal = es['house-property']
     ? houseProperty.properties.reduce((sum, p) => sum + p.annualRent, 0)
     : 0;
 
-  const capitalGainsTotal = capitalGains.enabled
+  const capitalGainsTotal = es['capital-gains']
     ? capitalGains.gains.reduce((sum, g) => sum + g.gain, 0)
     : 0;
 
-  const agriculturalTotal = agricultural.enabled ? agricultural.grossIncome : 0;
+  const agriculturalTotal = es.agricultural ? agricultural.grossIncome : 0;
 
-  const otherIncomeTotal = otherIncome.enabled
-    ? otherIncome.bankInterest +
-      otherIncome.dividends +
-      otherIncome.remittance +
+  const financialAssetsTotal = es['financial-assets']
+    ? financialAssets.bankInterest +
+      financialAssets.savingsCertificateInterest +
+      financialAssets.securitiesInterest +
+      financialAssets.listedDividends +
+      financialAssets.unlistedDividends +
+      financialAssets.otherFinancialIncome
+    : 0;
+
+  const otherIncomeTotal = es['other-income']
+    ? otherIncome.foreignRemittance +
+      otherIncome.royaltyIncome +
       otherIncome.otherSources
     : 0;
 
-  const investmentTotal = investment.enabled
+  const taxExemptedTotal = es['tax-exempted']
+    ? taxExempted.exemptedAgriculturalIncome +
+      taxExempted.exemptedDividends +
+      taxExempted.exemptedInterest +
+      taxExempted.exemptedOther
+    : 0;
+
+  const investmentTotal = es.investment
     ? investment.lifeInsurance +
       investment.depositPensionScheme +
       investment.providentFund +
@@ -78,103 +101,58 @@ export default function ReviewStep() {
       investment.otherInvestments
     : 0;
 
+  const tdsTotalAmount = taxPayments.tdsEntries.reduce(
+    (s, e) => s + e.amount,
+    0
+  );
+  const advanceTotalAmount = taxPayments.advanceTaxEntries.reduce(
+    (s, e) => s + e.amount,
+    0
+  );
+  const taxPaidTotal =
+    tdsTotalAmount +
+    advanceTotalAmount +
+    taxPayments.taxRefundAdjustment +
+    taxPayments.taxPaidWithReturn;
+
   const sections: {
     label: string;
     enabled: boolean;
-    step: WizardStep;
+    step: WizardStepId;
     total: number;
-    details?: { label: string; value: number }[];
   }[] = [
-    {
-      label: 'Salary Income',
-      enabled: salary.enabled,
-      step: 'salary',
-      total: salaryTotal,
-      details: salary.enabled
-        ? [
-            { label: 'Basic Salary', value: salary.basicSalary },
-            { label: 'House Rent Allowance', value: salary.houseRentAllowance },
-            { label: 'Medical Allowance', value: salary.medicalAllowance },
-            { label: 'Festival Bonus', value: salary.festivalBonus },
-            { label: 'Other Components', value: salary.conveyanceAllowance + salary.otherAllowances + salary.employerProvidentFund + salary.perquisites },
-          ].filter((d) => d.value > 0)
-        : undefined,
-    },
-    {
-      label: 'Business Income',
-      enabled: business.enabled,
-      step: 'business',
-      total: businessTotal,
-      details: business.enabled
-        ? [
-            { label: 'Gross Receipts', value: business.grossReceipts },
-            { label: 'Expenses', value: business.expenses },
-            { label: 'Net Profit', value: business.netProfit },
-          ]
-        : undefined,
-    },
-    {
-      label: 'House Property Income',
-      enabled: houseProperty.enabled,
-      step: 'house-property',
-      total: housePropertyTotal,
-      details: houseProperty.enabled
-        ? houseProperty.properties.map((p, i) => ({
-            label: `Property ${i + 1} (${p.type === 'self_occupied' ? 'Self' : 'Rented'})`,
-            value: p.annualRent,
-          }))
-        : undefined,
-    },
-    {
-      label: 'Capital Gains',
-      enabled: capitalGains.enabled,
-      step: 'capital-gains',
-      total: capitalGainsTotal,
-      details: capitalGains.enabled
-        ? capitalGains.gains.map((g, i) => ({
-            label: `Asset ${i + 1} (${g.assetType})`,
-            value: g.gain,
-          }))
-        : undefined,
-    },
-    {
-      label: 'Agricultural Income',
-      enabled: agricultural.enabled,
-      step: 'agricultural',
-      total: agriculturalTotal,
-    },
-    {
-      label: 'Other Income',
-      enabled: otherIncome.enabled,
-      step: 'other-income',
-      total: otherIncomeTotal,
-    },
-    {
-      label: 'Investment & Rebate',
-      enabled: investment.enabled,
-      step: 'investment',
-      total: investmentTotal,
-    },
+    { label: 'Salary Income', enabled: es.salary, step: 'salary', total: salaryTotal },
+    { label: 'Business Income', enabled: es.business, step: 'business', total: businessTotal },
+    { label: 'House Property', enabled: es['house-property'], step: 'house-property', total: housePropertyTotal },
+    { label: 'Capital Gains', enabled: es['capital-gains'], step: 'capital-gains', total: capitalGainsTotal },
+    { label: 'Agricultural Income', enabled: es.agricultural, step: 'agricultural', total: agriculturalTotal },
+    { label: 'Financial Assets', enabled: es['financial-assets'], step: 'financial-assets', total: financialAssetsTotal },
+    { label: 'Other Income', enabled: es['other-income'], step: 'other-income', total: otherIncomeTotal },
+    { label: 'Tax-Exempted Income', enabled: es['tax-exempted'], step: 'tax-exempted', total: taxExemptedTotal },
+    { label: 'Investment & Rebate', enabled: es.investment, step: 'investment', total: investmentTotal },
+    { label: 'Assets & Liabilities (IT-10B)', enabled: es['assets-liabilities'], step: 'assets-liabilities', total: 0 },
   ];
+
+  const enabledSections = sections.filter((s) => s.enabled);
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-foreground mb-1">
+        <h2 className="text-xl font-bold text-ink mb-1">
           Review & Calculate
         </h2>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-ink-muted">
           Review your information before calculating tax. Click Edit to make changes.
         </p>
       </div>
 
       {/* Personal Info */}
-      <div className="border border-border rounded-lg p-4">
+      <div className="border border-rule rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold text-foreground">Personal Information</h3>
+          <h3 className="font-semibold text-ink">Personal Information</h3>
           <button
             type="button"
-            onClick={() => navigateToStep('personal-info')}
+            onClick={() => navigateToStep('profile')}
             className="text-sm text-primary hover:text-primary-dark font-medium transition-colors"
           >
             Edit
@@ -182,25 +160,37 @@ export default function ReviewStep() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
           <div>
-            <span className="text-muted">Category:</span>{' '}
+            <span className="text-ink-muted">Category:</span>{' '}
             <span className="font-medium">{CATEGORY_LABELS[personalInfo.category]}</span>
           </div>
           <div>
-            <span className="text-muted">Location:</span>{' '}
+            <span className="text-ink-muted">Location:</span>{' '}
             <span className="font-medium">{LOCATION_LABELS[personalInfo.location]}</span>
           </div>
           <div>
-            <span className="text-muted">Year:</span>{' '}
+            <span className="text-ink-muted">Year:</span>{' '}
             <span className="font-medium">{ASSESSMENT_YEAR_LABELS[personalInfo.assessmentYear]}</span>
           </div>
+          {personalInfo.name && (
+            <div>
+              <span className="text-ink-muted">Name:</span>{' '}
+              <span className="font-medium">{personalInfo.name}</span>
+            </div>
+          )}
+          {personalInfo.tin && (
+            <div>
+              <span className="text-ink-muted">TIN:</span>{' '}
+              <span className="font-medium">{personalInfo.tin}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Income Sections */}
-      {sections.map((section) => (
-        <div key={section.step} className="border border-border rounded-lg p-4">
+      {/* Income & Other Sections */}
+      {enabledSections.map((section) => (
+        <div key={section.step} className="border border-rule rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="font-semibold text-foreground">{section.label}</h3>
+            <h3 className="font-semibold text-ink">{section.label}</h3>
             <button
               type="button"
               onClick={() => navigateToStep(section.step)}
@@ -209,117 +199,53 @@ export default function ReviewStep() {
               Edit
             </button>
           </div>
-          {section.enabled ? (
-            <div>
-              {section.details && section.details.length > 0 && (
-                <div className="space-y-1 mb-2">
-                  {section.details.map((d, i) => (
-                    <div
-                      key={i}
-                      className="flex justify-between text-sm text-muted"
-                    >
-                      <span>{d.label}</span>
-                      <span>{formatBDT(d.value)}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div className="flex justify-between text-sm font-medium border-t border-border pt-2">
-                <span>Total</span>
-                <span className="text-primary">{formatBDT(section.total)}</span>
-              </div>
+          {section.step === 'tax-exempted' ? (
+            <div className="flex justify-between text-sm font-medium">
+              <span>Total Exempted</span>
+              <span className="text-success">-{formatBDT(section.total)}</span>
             </div>
+          ) : section.step === 'assets-liabilities' ? (
+            <p className="text-sm text-ink-muted italic">IT-10B data entered</p>
           ) : (
-            <p className="text-sm text-muted italic">Not applicable</p>
+            <div className="flex justify-between text-sm font-medium">
+              <span>Total</span>
+              <span className="text-primary">{formatBDT(section.total)}</span>
+            </div>
           )}
         </div>
       ))}
 
-      {/* Tax Already Paid */}
-      <div className="border border-border rounded-lg p-4">
-        <h3 className="font-semibold text-foreground mb-3">Tax Already Paid</h3>
-        <div className="space-y-3">
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              TDS on Salary
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
-                ৳
-              </span>
-              <input
-                type="number"
-                className="w-full pl-8 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                value={taxPaid.tdsOnSalary || ''}
-                onChange={(e) =>
-                  updateFormData('taxPaid', {
-                    tdsOnSalary: parseFloat(e.target.value) || 0,
-                  })
-                }
-                min={0}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              TDS on Other Income
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
-                ৳
-              </span>
-              <input
-                type="number"
-                className="w-full pl-8 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                value={taxPaid.tdsOnOther || ''}
-                onChange={(e) =>
-                  updateFormData('taxPaid', {
-                    tdsOnOther: parseFloat(e.target.value) || 0,
-                  })
-                }
-                min={0}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Advance Tax Paid
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
-                ৳
-              </span>
-              <input
-                type="number"
-                className="w-full pl-8 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                value={taxPaid.advanceTax || ''}
-                onChange={(e) =>
-                  updateFormData('taxPaid', {
-                    advanceTax: parseFloat(e.target.value) || 0,
-                  })
-                }
-                min={0}
-              />
-            </div>
-          </div>
+      {/* Tax Payments Summary */}
+      <div className="border border-rule rounded-lg p-4">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="font-semibold text-ink">Tax Already Paid</h3>
+          <button
+            type="button"
+            onClick={() => navigateToStep('tax-payments')}
+            className="text-sm text-primary hover:text-primary-dark font-medium transition-colors"
+          >
+            Edit
+          </button>
+        </div>
+        <div className="flex justify-between text-sm font-medium">
+          <span>Total</span>
+          <span className="text-primary">{formatBDT(taxPaidTotal)}</span>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4 border-t border-border">
+      <div className="flex justify-between pt-4 border-t border-rule">
         <button
           type="button"
           onClick={prevStep}
-          className="border border-border hover:bg-gray-50 text-foreground px-6 py-2.5 rounded-lg font-medium transition-colors"
+          className="border border-rule hover:bg-surface-sunken text-ink px-6 py-2.5 rounded-lg font-medium transition-colors"
         >
           Previous
         </button>
         <button
           type="button"
           onClick={handleCalculate}
-          className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg font-bold text-lg transition-colors shadow-lg shadow-primary/20"
+          className="bg-cta hover:bg-cta-dark text-white px-8 py-3 rounded-lg font-bold text-lg transition-colors shadow-lg shadow-cta/20"
         >
           Calculate Tax
         </button>

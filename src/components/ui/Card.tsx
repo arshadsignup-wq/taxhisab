@@ -10,9 +10,9 @@ interface CardProps {
 }
 
 const variantClasses: Record<CardVariant, string> = {
-  default: "bg-white border border-slate-200",
-  bordered: "bg-white border-2 border-slate-300",
-  elevated: "bg-white border border-slate-100 shadow-lg shadow-slate-200/50",
+  default: "bg-white border border-rule",
+  bordered: "bg-white border-2 border-rule",
+  elevated: "bg-white border border-rule/50 elevation-2",
 };
 
 export default function Card({
@@ -32,8 +32,8 @@ export default function Card({
         .join(" ")}
     >
       {title && (
-        <div className="px-6 py-4 border-b border-slate-200">
-          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        <div className="px-6 py-4 border-b border-rule">
+          <h3 className="text-lg font-semibold text-ink">{title}</h3>
         </div>
       )}
       <div className="px-6 py-5">{children}</div>

@@ -1,6 +1,6 @@
-import { Info, Lightbulb, AlertTriangle } from 'lucide-react';
+import { Info, Lightbulb, AlertTriangle, CheckCircle } from 'lucide-react';
 
-type CalloutVariant = 'info' | 'tip' | 'warning';
+type CalloutVariant = 'info' | 'tip' | 'warning' | 'success';
 
 interface InfoCalloutProps {
   variant?: CalloutVariant;
@@ -13,22 +13,28 @@ const VARIANT_STYLES: Record<
   { bg: string; border: string; icon: React.ReactNode; defaultTitle: string }
 > = {
   info: {
-    bg: 'bg-gold-light',
-    border: 'border-l-gold',
-    icon: <Info className="w-5 h-5 text-gold" />,
+    bg: 'bg-info-light',
+    border: 'border-l-info',
+    icon: <Info className="w-5 h-5 text-info" />,
     defaultTitle: 'Information',
   },
   tip: {
-    bg: 'bg-green-mist',
-    border: 'border-l-green-deep',
-    icon: <Lightbulb className="w-5 h-5 text-green-deep" />,
+    bg: 'bg-primary-light',
+    border: 'border-l-primary',
+    icon: <Lightbulb className="w-5 h-5 text-primary" />,
     defaultTitle: 'Tip',
   },
   warning: {
-    bg: 'bg-amber-50',
-    border: 'border-l-amber-500',
-    icon: <AlertTriangle className="w-5 h-5 text-amber-600" />,
+    bg: 'bg-warning-light',
+    border: 'border-l-warning',
+    icon: <AlertTriangle className="w-5 h-5 text-warning" />,
     defaultTitle: 'Important',
+  },
+  success: {
+    bg: 'bg-success-light',
+    border: 'border-l-success',
+    icon: <CheckCircle className="w-5 h-5 text-success" />,
+    defaultTitle: 'Done',
   },
 };
 
@@ -41,7 +47,7 @@ export default function InfoCallout({
 
   return (
     <div
-      className={`${styles.bg} ${styles.border} border-l-4 rounded-lg p-4 my-4`}
+      className={`${styles.bg} ${styles.border} border-l-4 rounded-xl p-4 my-4`}
     >
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 mt-0.5">{styles.icon}</div>

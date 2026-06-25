@@ -1,11 +1,19 @@
 'use client';
 
 import { useCalculatorStore } from '@/store/calculator-store';
-import { WIZARD_STEPS, WIZARD_STEP_LABELS, WizardStep } from '@/types/tax';
+import type { WizardStep, WizardStepId } from '@/types/tax';
 
-export default function WizardStepIndicator() {
-  const { currentStep, goToStep, getCurrentStepIndex } = useCalculatorStore();
-  const currentIndex = getCurrentStepIndex();
+interface WizardStepIndicatorProps {
+  activeSteps: WizardStep[];
+  currentStep: WizardStepId;
+}
+
+export default function WizardStepIndicator({
+  activeSteps,
+  currentStep,
+}: WizardStepIndicatorProps) {
+  const { goToStep } = useCalculatorStore();
+  const currentIndex = activeSteps.findIndex((s) => s.id === currentStep);
 
   const getStepStatus = (index: number): 'completed' | 'current' | 'upcoming' => {
     if (index < currentIndex) return 'completed';
@@ -15,7 +23,7 @@ export default function WizardStepIndicator() {
 
   const handleStepClick = (step: WizardStep, index: number) => {
     if (index <= currentIndex) {
-      goToStep(step);
+      goToStep(step.id);
     }
   };
 
@@ -23,13 +31,13 @@ export default function WizardStepIndicator() {
     <nav aria-label="Progress" className="w-full mb-8">
       {/* Desktop horizontal layout */}
       <ol className="hidden md:flex items-center w-full">
-        {WIZARD_STEPS.map((step, index) => {
+        {activeSteps.map((step, index) => {
           const status = getStepStatus(index);
-          const isLast = index === WIZARD_STEPS.length - 1;
+          const isLast = index === activeSteps.length - 1;
 
           return (
             <li
-              key={step}
+              key={step.id}
               className={`flex items-center ${isLast ? '' : 'flex-1'}`}
             >
               <button
@@ -44,9 +52,9 @@ export default function WizardStepIndicator() {
                 <div
                   className={`flex items-center justify-center px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
                     status === 'completed'
-                      ? 'bg-green-deep text-white'
+                      ? 'bg-success text-white'
                       : status === 'current'
-                      ? 'bg-gold text-ink ring-4 ring-gold/20'
+                      ? 'bg-cta text-white ring-4 ring-cta/20'
                       : 'bg-surface text-ink-muted border border-rule'
                   }`}
                 >
@@ -71,20 +79,20 @@ export default function WizardStepIndicator() {
                 <span
                   className={`text-[10px] text-center max-w-[80px] leading-tight ${
                     status === 'current'
-                      ? 'text-gold font-semibold'
+                      ? 'text-cta font-semibold'
                       : status === 'completed'
-                      ? 'text-green-deep/70'
+                      ? 'text-success/70'
                       : 'text-ink-muted/60'
                   }`}
                 >
-                  {WIZARD_STEP_LABELS[step]}
+                  {step.shortLabel}
                 </span>
               </button>
 
               {!isLast && (
                 <div
                   className={`flex-1 h-0.5 mx-2 mt-[-16px] rounded-full ${
-                    index < currentIndex ? 'bg-green-deep' : 'bg-rule'
+                    index < currentIndex ? 'bg-cta' : 'bg-rule'
                   }`}
                 />
               )}
@@ -97,37 +105,37 @@ export default function WizardStepIndicator() {
       <div className="md:hidden">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-ink">
-            Step {currentIndex + 1} of {WIZARD_STEPS.length}
+            Step {currentIndex + 1} of {activeSteps.length}
           </span>
-          <span className="text-sm font-semibold text-gold">
-            {WIZARD_STEP_LABELS[currentStep]}
+          <span className="text-sm font-semibold text-cta">
+            {activeSteps[currentIndex]?.label ?? ''}
           </span>
         </div>
         <div className="w-full bg-rule rounded-full h-2">
           <div
-            className="bg-gold h-2 rounded-full transition-all duration-300"
+            className="bg-cta h-2 rounded-full transition-all duration-300"
             style={{
-              width: `${((currentIndex + 1) / WIZARD_STEPS.length) * 100}%`,
+              width: `${((currentIndex + 1) / activeSteps.length) * 100}%`,
             }}
           />
         </div>
         <div className="flex gap-1 mt-2">
-          {WIZARD_STEPS.map((step, index) => {
+          {activeSteps.map((step, index) => {
             const status = getStepStatus(index);
             return (
               <button
-                key={step}
+                key={step.id}
                 type="button"
                 onClick={() => handleStepClick(step, index)}
                 disabled={status === 'upcoming'}
                 className={`flex-1 h-1.5 rounded-full transition-colors ${
                   status === 'completed'
-                    ? 'bg-green-deep'
+                    ? 'bg-success'
                     : status === 'current'
-                    ? 'bg-gold'
+                    ? 'bg-cta'
                     : 'bg-rule'
                 } ${status !== 'upcoming' ? 'cursor-pointer' : 'cursor-default'}`}
-                aria-label={`Go to ${WIZARD_STEP_LABELS[step]}`}
+                aria-label={`Go to ${step.label}`}
               />
             );
           })}

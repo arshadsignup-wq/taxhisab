@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 export default function RegistrationPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-foreground mb-2">
+      <h1 className="text-3xl font-bold text-ink mb-2">
         Set Up Your TIN &amp; e-Return Account
       </h1>
-      <p className="text-muted mb-8 leading-relaxed">
+      <p className="text-ink-muted mb-8 leading-relaxed">
         Before you file anything, you need two things: a 12-digit e-TIN (your
         tax ID) and an account on the NBR e-Return portal. This is a one-time
         process. Once registered, you use the same account every year.
@@ -34,7 +34,7 @@ export default function RegistrationPage() {
           </a>{' '}
           and apply for your electronic Taxpayer Identification Number.
         </p>
-        <p className="mb-3 font-medium text-foreground">
+        <p className="mb-3 font-medium text-ink">
           Documents and information you will need:
         </p>
         <ul className="list-disc list-inside space-y-1.5">
@@ -68,7 +68,7 @@ export default function RegistrationPage() {
           </a>{' '}
           and create your e-Return account.
         </p>
-        <p className="mb-3 font-medium text-foreground">
+        <p className="mb-3 font-medium text-ink">
           Registration process:
         </p>
         <ul className="list-disc list-inside space-y-1.5">

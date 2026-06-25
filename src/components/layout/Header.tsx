@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Calculator } from "lucide-react";
 import MobileNav from "./MobileNav";
 
 const navLinks = [
@@ -26,40 +26,44 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-rule">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-rule/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
-              <span className="font-[family-name:var(--font-display)] text-lg font-extrabold text-green-deep">
+              <span className="font-display text-lg font-extrabold text-primary">
                 TaxHisab
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-0.5">
+            <nav className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+                  className={`px-3 py-1.5 text-sm transition-colors rounded-md ${
                     isActive(link.href)
-                      ? "text-green-deep"
-                      : "text-ink-muted hover:text-green-deep"
+                      ? "text-primary font-semibold bg-primary-light"
+                      : "text-ink-muted font-normal hover:text-primary hover:bg-primary-light/50"
                   }`}
                 >
                   {link.label}
-                  {isActive(link.href) && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-gold rounded-full" />
-                  )}
                 </Link>
               ))}
+              <Link
+                href="/calculator"
+                className="ml-3 inline-flex items-center gap-1.5 bg-cta text-white font-semibold px-4 py-2 rounded-lg hover:bg-cta-dark text-sm"
+              >
+                <Calculator className="w-4 h-4" />
+                Calculate Tax
+              </Link>
             </nav>
 
             {/* Mobile Menu Button */}
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-ink-muted hover:text-green-deep hover:bg-surface transition-colors"
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-ink-muted hover:text-primary hover:bg-surface-sunken"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open navigation menu"
             >

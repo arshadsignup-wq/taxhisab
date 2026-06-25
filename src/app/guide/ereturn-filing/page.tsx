@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 export default function EReturnFilingPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-foreground mb-2">
+      <h1 className="text-3xl font-bold text-ink mb-2">
         Filing Your e-Return: Every Screen Explained
       </h1>
-      <p className="text-muted mb-8 leading-relaxed">
+      <p className="text-ink-muted mb-8 leading-relaxed">
         Here is exactly what you will see when you log into the NBR portal and
         start your return. Each step below matches a section of the online form.
         Go through them in order.

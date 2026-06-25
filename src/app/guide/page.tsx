@@ -56,10 +56,10 @@ export default function GuidePage() {
   return (
     <div>
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-foreground mb-3">
+        <h1 className="text-3xl font-bold text-ink mb-3">
           File Your Own e-Return
         </h1>
-        <p className="text-lg text-muted leading-relaxed max-w-2xl">
+        <p className="text-lg text-ink-muted leading-relaxed max-w-2xl">
           First time filing? This guide covers every step, from getting your
           TIN to downloading your acknowledgment receipt. Follow the sections in
           order, or jump to the one you need.
@@ -71,17 +71,17 @@ export default function GuidePage() {
           <Link
             key={section.href}
             href={section.href}
-            className="group block border border-border rounded-lg p-6 hover:border-primary/40 hover:shadow-md transition-all duration-200"
+            className="group block border border-rule rounded-xl p-6 bg-white elevation-2-interactive"
           >
             <div className="flex items-start gap-4">
               <span className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
                 {section.number}
               </span>
               <div>
-                <h2 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
+                <h2 className="text-lg font-semibold text-ink group-hover:text-primary transition-colors mb-1">
                   {section.title}
                 </h2>
-                <p className="text-sm text-muted leading-relaxed">
+                <p className="text-sm text-ink-muted leading-relaxed">
                   {section.description}
                 </p>
               </div>

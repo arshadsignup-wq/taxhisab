@@ -79,7 +79,7 @@ const TAX_CONFIGS: Record<AssessmentYear, YearTaxConfig> = {
       other_city_corp: 5000,
       other: 5000,
     },
-    investmentIncomePercentage: 0.20,
+    investmentIncomePercentage: 0.03, // 3% of total income per Finance Ordinance 2025
   },
 };
 

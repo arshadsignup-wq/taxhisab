@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function TaxRulesPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-4">Bangladesh Tax Rules at a Glance</h1>
-      <p className="text-muted mb-10 max-w-2xl">
+      <h1 className="text-3xl font-bold mb-4 text-ink">Bangladesh Tax Rules at a Glance</h1>
+      <p className="text-ink-muted mb-10 max-w-2xl">
         Tax rates and thresholds change every assessment year. Here are the
         current rules you need to know, organized by topic so you can find
         what you&apos;re looking for quickly.
@@ -51,13 +51,13 @@ function RuleCard({
   return (
     <Link
       href={href}
-      className="block p-6 bg-white rounded-xl border border-border hover:border-primary/30 hover:shadow-md transition-all group"
+      className="block p-6 bg-white rounded-xl border border-rule elevation-2-interactive group"
     >
-      <h2 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+      <h2 className="text-lg font-semibold mb-2 text-ink group-hover:text-primary transition-colors">
         {title}
       </h2>
-      <p className="text-muted text-sm mb-4">{description}</p>
-      <span className="text-primary text-sm font-medium inline-flex items-center gap-1">
+      <p className="text-ink-muted text-sm mb-4">{description}</p>
+      <span className="text-cta text-sm font-medium inline-flex items-center gap-1">
         View details <ArrowRight className="w-4 h-4" />
       </span>
     </Link>

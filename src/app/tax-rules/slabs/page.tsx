@@ -10,7 +10,7 @@ export default function SlabsPage() {
       <h1 className="text-3xl font-bold mb-4">
         Income Tax Slabs & Rates
       </h1>
-      <p className="text-muted mb-10">
+      <p className="text-ink-muted mb-10">
         Bangladesh taxes income progressively. You pay a higher rate only on
         the portion of income that falls into each slab, not on your entire
         income. The tax-free threshold varies by taxpayer category.
@@ -26,7 +26,7 @@ export default function SlabsPage() {
         </h2>
 
         <h3 className="text-lg font-medium mb-3">Tax-Free Thresholds</h3>
-        <div className="bg-white rounded-xl border border-border overflow-hidden mb-6">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden mb-6">
           <table className="w-full">
             <thead>
               <tr className="bg-primary text-white">
@@ -38,7 +38,7 @@ export default function SlabsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-rule">
               <ThresholdRow category="Male (General)" amount="BDT 3,75,000" />
               <ThresholdRow category="Female" amount="BDT 4,25,000" />
               <ThresholdRow category="Senior Citizen (65+)" amount="BDT 4,25,000" />
@@ -49,7 +49,7 @@ export default function SlabsPage() {
         </div>
 
         <h3 className="text-lg font-medium mb-3">Progressive Tax Slabs</h3>
-        <div className="bg-white rounded-xl border border-border overflow-hidden mb-6">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden mb-6">
           <table className="w-full">
             <thead>
               <tr className="bg-primary text-white">
@@ -59,7 +59,7 @@ export default function SlabsPage() {
                 <th className="text-right px-6 py-3 font-semibold">Rate</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-rule">
               <SlabRow range="First BDT 3,00,000" rate="10%" />
               <SlabRow range="Next BDT 4,00,000" rate="15%" />
               <SlabRow range="Next BDT 5,00,000" rate="20%" />
@@ -92,7 +92,7 @@ export default function SlabsPage() {
               <span className="font-bold text-primary">BDT 78,750</span>
             </div>
           </div>
-          <p className="text-xs text-muted mt-3">
+          <p className="text-xs text-ink-muted mt-3">
             Taxable income above threshold = 10,00,000 - 3,75,000 = 6,25,000.
             First 3,00,000 at 10% = 30,000. Remaining 3,25,000 at 15% = 48,750.
           </p>
@@ -106,10 +106,10 @@ export default function SlabsPage() {
         </h2>
 
         <h3 className="text-lg font-medium mb-3">Tax-Free Thresholds</h3>
-        <div className="bg-white rounded-xl border border-border overflow-hidden mb-6">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden mb-6">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-700 text-white">
+              <tr className="bg-ink/80 text-white">
                 <th className="text-left px-6 py-3 font-semibold">
                   Taxpayer Category
                 </th>
@@ -118,7 +118,7 @@ export default function SlabsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-rule">
               <ThresholdRow category="Male (General)" amount="BDT 3,50,000" />
               <ThresholdRow category="Female" amount="BDT 4,00,000" />
               <ThresholdRow category="Senior Citizen (65+)" amount="BDT 4,00,000" />
@@ -129,17 +129,17 @@ export default function SlabsPage() {
         </div>
 
         <h3 className="text-lg font-medium mb-3">Progressive Tax Slabs</h3>
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-700 text-white">
+              <tr className="bg-ink/80 text-white">
                 <th className="text-left px-6 py-3 font-semibold">
                   Taxable Income (above threshold)
                 </th>
                 <th className="text-right px-6 py-3 font-semibold">Rate</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-rule">
               <SlabRow range="First BDT 1,00,000" rate="5%" />
               <SlabRow range="Next BDT 4,00,000" rate="10%" />
               <SlabRow range="Next BDT 5,00,000" rate="15%" />
@@ -158,10 +158,10 @@ export default function SlabsPage() {
         </h2>
 
         <h3 className="text-lg font-medium mb-3">Tax-Free Thresholds</h3>
-        <div className="bg-white rounded-xl border border-border overflow-hidden mb-6">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden mb-6">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-700 text-white">
+              <tr className="bg-ink/80 text-white">
                 <th className="text-left px-6 py-3 font-semibold">
                   Taxpayer Category
                 </th>
@@ -170,7 +170,7 @@ export default function SlabsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-rule">
               <ThresholdRow category="Male (General)" amount="BDT 3,50,000" />
               <ThresholdRow category="Female" amount="BDT 4,00,000" />
               <ThresholdRow category="Senior Citizen (65+)" amount="BDT 4,00,000" />
@@ -181,17 +181,17 @@ export default function SlabsPage() {
         </div>
 
         <h3 className="text-lg font-medium mb-3">Progressive Tax Slabs</h3>
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-700 text-white">
+              <tr className="bg-ink/80 text-white">
                 <th className="text-left px-6 py-3 font-semibold">
                   Taxable Income (above threshold)
                 </th>
                 <th className="text-right px-6 py-3 font-semibold">Rate</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-rule">
               <SlabRow range="First BDT 1,00,000" rate="5%" />
               <SlabRow range="Next BDT 4,00,000" rate="10%" />
               <SlabRow range="Next BDT 5,00,000" rate="15%" />
@@ -213,7 +213,7 @@ function ThresholdRow({
   amount: string;
 }) {
   return (
-    <tr className="hover:bg-gray-50">
+    <tr className="hover:bg-surface-sunken">
       <td className="px-6 py-3">{category}</td>
       <td className="px-6 py-3 text-right font-semibold">{amount}</td>
     </tr>
@@ -222,7 +222,7 @@ function ThresholdRow({
 
 function SlabRow({ range, rate }: { range: string; rate: string }) {
   return (
-    <tr className="hover:bg-gray-50">
+    <tr className="hover:bg-surface-sunken">
       <td className="px-6 py-3">{range}</td>
       <td className="px-6 py-3 text-right font-semibold text-primary">
         {rate}

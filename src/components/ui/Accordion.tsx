@@ -50,17 +50,17 @@ function AccordionPanel({
   }, [isOpen]);
 
   return (
-    <div className="border-b border-slate-200 last:border-b-0">
+    <div className="border-b border-rule last:border-b-0">
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between px-4 py-4 text-left text-sm font-medium text-slate-900 hover:bg-slate-50 transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#006A4E]/30 focus-visible:ring-inset cursor-pointer"
+        className="flex w-full items-center justify-between px-4 py-4 text-left text-sm font-medium text-ink hover:bg-surface-sunken transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-cta/30 focus-visible:ring-inset cursor-pointer"
         aria-expanded={isOpen}
       >
         <span>{title}</span>
         <ChevronDown
           className={[
-            "h-4 w-4 text-slate-500 transition-transform duration-200",
+            "h-4 w-4 text-ink-muted transition-transform duration-200",
             isOpen ? "rotate-180" : "rotate-0",
           ].join(" ")}
           aria-hidden="true"
@@ -71,7 +71,7 @@ function AccordionPanel({
         style={{ maxHeight }}
         className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
       >
-        <div ref={contentRef} className="px-4 pb-4 text-sm text-slate-600">
+        <div ref={contentRef} className="px-4 pb-4 text-sm text-ink-muted">
           {content}
         </div>
       </div>
@@ -103,7 +103,7 @@ export default function Accordion({ items, allowMultiple = false }: AccordionPro
   );
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white overflow-hidden divide-y divide-slate-200">
+    <div className="rounded-xl border border-rule bg-white overflow-hidden divide-y divide-rule">
       {items.map((item, index) => (
         <AccordionPanel
           key={index}

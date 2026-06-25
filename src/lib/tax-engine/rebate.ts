@@ -11,7 +11,7 @@ import {
  * Steps:
  *   1. Total eligible = sum of all investment fields
  *   2. Admissible = min(totalEligible, BDT 10,00,000, X% of taxable income)
- *      where X = 20% for AY 2024-2025 through 2026-2027
+ *      where X = 20% for AY 2024-2025 & 2025-2026, 3% for AY 2026-2027
  *   3. Rebate = 15% of admissible amount
  */
 export function calculateInvestmentRebate(

@@ -8,7 +8,7 @@ export default function ExemptionsPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-4">Exemptions & Thresholds</h1>
-      <p className="text-muted mb-10">
+      <p className="text-ink-muted mb-10">
         Not every taka you earn is taxable. Salary allowances have exemption
         caps, investments earn you a 15% rebate, and every taxpayer has a
         minimum tax floor. Here are the exact numbers.
@@ -17,7 +17,7 @@ export default function ExemptionsPage() {
       {/* Salary Exemptions */}
       <section className="mb-12">
         <h2 className="text-xl font-semibold mb-4">Salary Exemptions</h2>
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden">
           <table className="w-full">
             <thead>
               <tr className="bg-primary text-white">
@@ -29,8 +29,8 @@ export default function ExemptionsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
-              <tr className="hover:bg-gray-50">
+            <tbody className="divide-y divide-rule">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3 font-medium">
                   House Rent Allowance (HRA)
                 </td>
@@ -38,14 +38,14 @@ export default function ExemptionsPage() {
                   Lower of: actual HRA, 50% of basic salary, or BDT 3,00,000
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3 font-medium">Medical Allowance</td>
                 <td className="px-6 py-3">
                   Lower of: actual medical allowance, 10% of basic salary, or
                   BDT 1,20,000
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3 font-medium">
                   Conveyance Allowance
                 </td>
@@ -56,7 +56,7 @@ export default function ExemptionsPage() {
             </tbody>
           </table>
         </div>
-        <p className="text-sm text-muted mt-3">
+        <p className="text-sm text-ink-muted mt-3">
           The exempted portion is deducted from the respective allowance. Only
           the excess is added to taxable income.
         </p>
@@ -65,7 +65,7 @@ export default function ExemptionsPage() {
       {/* Investment Rebate */}
       <section className="mb-12">
         <h2 className="text-xl font-semibold mb-4">Investment Tax Rebate</h2>
-        <div className="bg-white rounded-xl border border-border p-6">
+        <div className="bg-white rounded-xl border border-rule p-6">
           <p className="mb-4">
             Taxpayers can claim a rebate of <strong>15%</strong> on eligible
             investments. The eligible amount is the lowest of:
@@ -109,7 +109,7 @@ export default function ExemptionsPage() {
       {/* Minimum Tax */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Minimum Tax</h2>
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden">
           <table className="w-full">
             <thead>
               <tr className="bg-primary text-white">
@@ -121,8 +121,8 @@ export default function ExemptionsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
-              <tr className="hover:bg-gray-50">
+            <tbody className="divide-y divide-rule">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">
                   Dhaka & Chattogram City Corporation
                 </td>
@@ -130,13 +130,13 @@ export default function ExemptionsPage() {
                   BDT 5,000
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">Other City Corporations</td>
                 <td className="px-6 py-3 text-right font-semibold">
                   BDT 4,000
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">Other Areas</td>
                 <td className="px-6 py-3 text-right font-semibold">
                   BDT 3,000
@@ -145,7 +145,7 @@ export default function ExemptionsPage() {
             </tbody>
           </table>
         </div>
-        <p className="text-sm text-muted mt-3">
+        <p className="text-sm text-ink-muted mt-3">
           If your calculated tax (after rebate) is less than the minimum tax for
           your location, the minimum tax amount applies instead. For AY 2026-2027,
           the minimum tax is a flat BDT 5,000 regardless of location.

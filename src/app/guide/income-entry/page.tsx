@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default function IncomeEntryPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-foreground mb-2">
+      <h1 className="text-3xl font-bold text-ink mb-2">
         Entering Your Income: What Goes Where
       </h1>
-      <p className="text-muted mb-8 leading-relaxed">
+      <p className="text-ink-muted mb-8 leading-relaxed">
         The e-Return form has six income sections. Most people only need one or
         two. Read the sections that apply to your situation and skip the rest.
       </p>
@@ -24,7 +24,7 @@ export default function IncomeEntryPage() {
           the salary section. You will need your salary certificate from your
           employer.
         </p>
-        <p className="mb-2 font-medium text-foreground">Key fields:</p>
+        <p className="mb-2 font-medium text-ink">Key fields:</p>
         <ul className="list-disc list-inside space-y-1.5">
           <li>
             <strong>Basic Salary:</strong> Your annual basic pay

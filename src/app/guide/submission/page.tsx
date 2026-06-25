@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default function SubmissionPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-foreground mb-2">
+      <h1 className="text-3xl font-bold text-ink mb-2">
         Review, Pay, and Submit Your Return
       </h1>
-      <p className="text-muted mb-8 leading-relaxed">
+      <p className="text-ink-muted mb-8 leading-relaxed">
         You are almost done. These final steps cover checking your numbers one
         last time, making your tax payment, hitting Submit, and downloading your
         acknowledgment receipt as proof of filing.

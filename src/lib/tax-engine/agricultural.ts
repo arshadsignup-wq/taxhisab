@@ -20,7 +20,6 @@ export function calculateAgriculturalIncome(
   if (agricultural.expenseMethod === 'flat_rate') {
     netIncome = gross * (1 - AGRICULTURAL_FLAT_EXPENSE_RATE);
   } else {
-    // actual method
     netIncome = gross - agricultural.actualExpenses;
   }
 

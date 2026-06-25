@@ -9,20 +9,20 @@ export const metadata: Metadata = {
 export default function DeductionsRebatePage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-foreground mb-2">
+      <h1 className="text-3xl font-bold text-ink mb-2">
         Cut Your Tax Bill with Investment Rebates
       </h1>
-      <p className="text-muted mb-8 leading-relaxed">
+      <p className="text-ink-muted mb-8 leading-relaxed">
         Bangladesh gives you a 15% tax rebate on qualifying investments: DPS,
         insurance, provident fund, and more. Here is how to calculate your
         rebate and which investments count.
       </p>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           How the Rebate Works
         </h2>
-        <div className="bg-white border border-border rounded-lg p-6">
+        <div className="bg-white border border-rule rounded-lg p-6">
           <p className="mb-4">
             Bangladesh offers a <strong>15% tax rebate</strong> on eligible
             investments. The rebate is calculated as follows:
@@ -43,7 +43,7 @@ export default function DeductionsRebatePage() {
           </ol>
           <div className="bg-primary-light rounded-lg p-4">
             <p className="text-sm font-medium mb-2">Example:</p>
-            <p className="text-sm text-muted">
+            <p className="text-sm text-ink-muted">
               If your taxable income is BDT 8,00,000 and total investment is BDT
               2,50,000:
               <br />
@@ -57,7 +57,7 @@ export default function DeductionsRebatePage() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-4">
           Eligible Investments
         </h2>
         <div className="space-y-4">
@@ -128,9 +128,9 @@ function InvestmentItem({
   description: string;
 }) {
   return (
-    <div className="border border-border rounded-lg p-4">
-      <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-      <p className="text-sm text-muted">{description}</p>
+    <div className="border border-rule rounded-lg p-4">
+      <h3 className="font-semibold text-ink mb-1">{title}</h3>
+      <p className="text-sm text-ink-muted">{description}</p>
     </div>
   );
 }

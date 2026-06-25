@@ -33,7 +33,7 @@ export default function GuideSidebar() {
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-rule rounded-lg text-sm font-medium text-ink hover:bg-surface-sunken transition-colors"
         >
           <span>
             {activeSection
@@ -41,14 +41,14 @@ export default function GuideSidebar() {
               : "Guide Sections"}
           </span>
           <ChevronDown
-            className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${
+            className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${
               isExpanded ? "rotate-180" : ""
             }`}
           />
         </button>
 
         {isExpanded && (
-          <div className="mt-2 bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+          <div className="mt-2 bg-white border border-rule rounded-lg overflow-hidden elevation-1">
             <nav className="py-1">
               {guideSections.map((section) => (
                 <Link
@@ -57,15 +57,15 @@ export default function GuideSidebar() {
                   onClick={() => setIsExpanded(false)}
                   className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors ${
                     isActive(section.href)
-                      ? "text-[#006A4E] bg-[#006A4E]/5 font-medium"
-                      : "text-gray-600 hover:text-[#006A4E] hover:bg-gray-50"
+                      ? "text-primary bg-primary-light font-medium"
+                      : "text-ink-muted hover:text-primary hover:bg-surface-sunken"
                   }`}
                 >
                   <span
                     className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold shrink-0 ${
                       isActive(section.href)
-                        ? "bg-[#006A4E] text-white"
-                        : "bg-gray-100 text-gray-500"
+                        ? "bg-primary text-white"
+                        : "bg-surface-sunken text-ink-muted"
                     }`}
                   >
                     {section.number}
@@ -80,9 +80,9 @@ export default function GuideSidebar() {
 
       {/* Desktop: Sidebar */}
       <aside className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-20 bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+        <div className="sticky top-20 bg-white border border-rule rounded-lg overflow-hidden">
+          <div className="px-4 py-3 border-b border-rule">
+            <h3 className="text-sm font-semibold text-ink uppercase tracking-wider">
               Guide Sections
             </h3>
           </div>
@@ -93,15 +93,15 @@ export default function GuideSidebar() {
                 href={section.href}
                 className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors border-l-2 ${
                   isActive(section.href)
-                    ? "text-[#006A4E] bg-[#006A4E]/5 font-medium border-l-[#006A4E]"
-                    : "text-gray-600 hover:text-[#006A4E] hover:bg-gray-50 border-l-transparent"
+                    ? "text-primary bg-primary-light font-medium border-l-primary"
+                    : "text-ink-muted hover:text-primary hover:bg-surface-sunken border-l-transparent"
                 }`}
               >
                 <span
                   className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold shrink-0 ${
                     isActive(section.href)
-                      ? "bg-[#006A4E] text-white"
-                      : "bg-gray-100 text-gray-500"
+                      ? "bg-primary text-white"
+                      : "bg-surface-sunken text-ink-muted"
                   }`}
                 >
                   {section.number}

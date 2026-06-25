@@ -8,7 +8,7 @@ export default function SurchargePage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-4">Surcharge Rules</h1>
-      <p className="text-muted mb-10">
+      <p className="text-ink-muted mb-10">
         If your net wealth exceeds BDT 4 crore or you own more than one motor
         vehicle, you pay a surcharge on top of your regular income tax. Most
         individual filers are not affected. Check the thresholds below
@@ -20,11 +20,11 @@ export default function SurchargePage() {
         <h2 className="text-xl font-semibold mb-4">
           Surcharge on Net Wealth
         </h2>
-        <p className="text-muted mb-4">
+        <p className="text-ink-muted mb-4">
           If your net wealth (total assets minus liabilities) exceeds BDT 4
           crore, a surcharge applies on your calculated income tax amount.
         </p>
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
+        <div className="bg-white rounded-xl border border-rule overflow-hidden">
           <table className="w-full">
             <thead>
               <tr className="bg-primary text-white">
@@ -36,32 +36,32 @@ export default function SurchargePage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
-              <tr className="hover:bg-gray-50">
+            <tbody className="divide-y divide-rule">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">Up to BDT 4 crore</td>
                 <td className="px-6 py-3 text-right font-semibold">
                   No surcharge
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">BDT 4 crore to BDT 10 crore</td>
                 <td className="px-6 py-3 text-right font-semibold text-primary">
                   10%
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">BDT 10 crore to BDT 20 crore</td>
                 <td className="px-6 py-3 text-right font-semibold text-primary">
                   20%
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">BDT 20 crore to BDT 50 crore</td>
                 <td className="px-6 py-3 text-right font-semibold text-primary">
                   25%
                 </td>
               </tr>
-              <tr className="hover:bg-gray-50">
+              <tr className="hover:bg-surface-sunken">
                 <td className="px-6 py-3">Above BDT 50 crore</td>
                 <td className="px-6 py-3 text-right font-semibold text-primary">
                   35%
@@ -70,7 +70,7 @@ export default function SurchargePage() {
             </tbody>
           </table>
         </div>
-        <p className="text-sm text-muted mt-3">
+        <p className="text-sm text-ink-muted mt-3">
           Minimum surcharge of BDT 5,000 applies if net wealth exceeds BDT 4
           crore.
         </p>
@@ -81,7 +81,7 @@ export default function SurchargePage() {
         <h2 className="text-xl font-semibold mb-4">
           Environmental Surcharge (Vehicles)
         </h2>
-        <div className="bg-white rounded-xl border border-border p-6">
+        <div className="bg-white rounded-xl border border-rule p-6">
           <p className="mb-4">
             If you own more than one motor vehicle, an environmental surcharge
             applies:
