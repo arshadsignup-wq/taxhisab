@@ -363,6 +363,8 @@ export const en: Translations = {
     totalLiabilities: 'Total Liabilities',
     netWealth: 'Net Wealth',
     netWealthSurchargeNote: 'Net wealth exceeds BDT 4 crore — surcharge has been applied to your tax computation above.',
+    addDetailsToggle: 'Add your details for PDF / print',
+    addDetailsDescription: 'These optional fields do not affect your tax calculation. They will appear on your printed result and PDF export for easy transfer to the NBR e-Return portal.',
     noResultTitle: 'Your results will appear here',
     noResultText: 'Complete the calculator steps to see your full income tax computation with slab-wise breakdown.',
     noResultHint: 'It only takes a few minutes. Your data stays on your device.',
@@ -501,7 +503,6 @@ export const en: Translations = {
     stepOf: 'Step {current} of {total}',
     steps: {
       profile: { label: 'Income Profile', shortLabel: 'Profile' },
-      'personal-info': { label: 'Personal Information', shortLabel: 'Personal' },
       salary: { label: 'Salary Income', shortLabel: 'Salary' },
       'house-property': { label: 'House Property', shortLabel: 'Property' },
       agricultural: { label: 'Agricultural Income', shortLabel: 'Agricultural' },

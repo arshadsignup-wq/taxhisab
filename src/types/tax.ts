@@ -329,7 +329,6 @@ export interface TaxCalculationResult {
 
 export type WizardStepId =
   | 'profile'
-  | 'personal-info'
   | 'salary'
   | 'house-property'
   | 'agricultural'
@@ -352,7 +351,6 @@ export interface WizardStep {
 // Static full list -- used by getActiveSteps() to filter
 export const ALL_WIZARD_STEPS: WizardStep[] = [
   { id: 'profile', label: 'Income Profile', shortLabel: 'Profile' },
-  { id: 'personal-info', label: 'Personal Information', shortLabel: 'Personal' },
   { id: 'salary', label: 'Salary Income', shortLabel: 'Salary' },
   { id: 'house-property', label: 'House Property', shortLabel: 'Property' },
   { id: 'agricultural', label: 'Agricultural Income', shortLabel: 'Agricultural' },

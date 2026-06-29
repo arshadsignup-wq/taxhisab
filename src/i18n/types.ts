@@ -234,6 +234,8 @@ export interface Translations {
     totalLiabilities: string;
     netWealth: string;
     netWealthSurchargeNote: string;
+    addDetailsToggle: string;
+    addDetailsDescription: string;
     noResultTitle: string;
     noResultText: string;
     noResultHint: string;

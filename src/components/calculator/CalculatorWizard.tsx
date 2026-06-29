@@ -5,7 +5,6 @@ import { getActiveSteps } from '@/lib/wizard-steps';
 import WizardStepIndicator from '@/components/calculator/WizardStepIndicator';
 import RunningTotalBanner from '@/components/calculator/RunningTotalBanner';
 import ProfileStep from '@/components/calculator/steps/ProfileStep';
-import PersonalInfoStep from '@/components/calculator/steps/PersonalInfoStep';
 import SalaryIncomeStep from '@/components/calculator/steps/SalaryIncomeStep';
 import BusinessIncomeStep from '@/components/calculator/steps/BusinessIncomeStep';
 import HousePropertyStep from '@/components/calculator/steps/HousePropertyStep';
@@ -22,7 +21,6 @@ import type { WizardStepId } from '@/types/tax';
 
 const STEP_COMPONENTS: Record<WizardStepId, React.ComponentType> = {
   profile: ProfileStep,
-  'personal-info': PersonalInfoStep,
   salary: SalaryIncomeStep,
   business: BusinessIncomeStep,
   'house-property': HousePropertyStep,

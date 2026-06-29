@@ -172,18 +172,6 @@ export default function ReviewStep() {
             <span className="text-ink-muted">Year:</span>{' '}
             <span className="font-medium">{t.labels.assessmentYears[personalInfo.assessmentYear]}</span>
           </div>
-          {personalInfo.name && (
-            <div>
-              <span className="text-ink-muted">Name:</span>{' '}
-              <span className="font-medium">{personalInfo.name}</span>
-            </div>
-          )}
-          {personalInfo.tin && (
-            <div>
-              <span className="text-ink-muted">TIN:</span>{' '}
-              <span className="font-medium">{personalInfo.tin}</span>
-            </div>
-          )}
         </div>
       </div>
 

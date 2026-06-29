@@ -336,6 +336,8 @@ export const bn: Translations = {
     totalLiabilities: 'মোট দায়',
     netWealth: 'নিট সম্পদ',
     netWealthSurchargeNote: 'নিট সম্পদ BDT 4 কোটির বেশি — উপরের কর হিসাবে সারচার্জ প্রয়োগ করা হয়েছে।',
+    addDetailsToggle: 'PDF / প্রিন্টের জন্য আপনার তথ্য যোগ করুন',
+    addDetailsDescription: 'এই ঐচ্ছিক ক্ষেত্রগুলো আপনার কর হিসাবে প্রভাব ফেলে না। এগুলো আপনার প্রিন্টেড ফলাফল ও PDF এক্সপোর্টে দেখাবে যাতে সহজে NBR ই-রিটার্ন পোর্টালে স্থানান্তর করতে পারেন।',
     noResultTitle: 'আপনার ফলাফল এখানে দেখাবে',
     noResultText: 'স্ল্যাব অনুযায়ী সম্পূর্ণ আয়কর হিসাব দেখতে ক্যালকুলেটরের ধাপগুলো সম্পন্ন করুন।',
     noResultHint: 'মাত্র কয়েক মিনিট সময় লাগবে। আপনার তথ্য আপনার ডিভাইসেই থাকবে।',
@@ -448,7 +450,6 @@ export const bn: Translations = {
     stepOf: 'ধাপ {current} / {total}',
     steps: {
       profile: { label: 'আয়ের প্রোফাইল', shortLabel: 'প্রোফাইল' },
-      'personal-info': { label: 'ব্যক্তিগত তথ্য', shortLabel: 'ব্যক্তিগত' },
       salary: { label: 'বেতন আয়', shortLabel: 'বেতন' },
       'house-property': { label: 'গৃহসম্পত্তি', shortLabel: 'সম্পত্তি' },
       agricultural: { label: 'কৃষি আয়', shortLabel: 'কৃষি' },

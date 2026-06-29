@@ -177,7 +177,7 @@ interface CalculatorStore {
 
 // ─── Store ──────────────────────────────────────────────────────
 
-const STORAGE_VERSION = 2;
+const STORAGE_VERSION = 3;
 
 export const useCalculatorStore = create<CalculatorStore>()(
   persist(

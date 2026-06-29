@@ -4,13 +4,12 @@ import { ALL_WIZARD_STEPS } from '@/types/tax';
 /**
  * Returns the active wizard steps based on the user's profile selections.
  *
- * Steps that always appear: profile, personal-info, tax-payments, review
+ * Steps that always appear: profile, tax-payments, review
  * Conditional steps appear only when the corresponding income section is enabled.
  */
 export function getActiveSteps(profile: TaxProfile): WizardStep[] {
   const alwaysShown: WizardStepId[] = [
     'profile',
-    'personal-info',
     'tax-payments',
     'review',
   ];
